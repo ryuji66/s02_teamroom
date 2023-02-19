@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>掲示板</title>
+  </head>
+  <body>
+    <h1>掲示板</h1>
+    <form method="post">
+      <p>
+        名前：<input type="text" name="name">
+      </p>
+      <p>
+        メッセージ：<textarea name="message"></textarea>
+      </p>
+      <p>
+        <input type="submit" value="投稿">
+      </p>
+    </form>
+    <hr>
+    {% for post in posts %}
+      <p>{{ post[1] }}
