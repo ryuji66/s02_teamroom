@@ -16,3 +16,20 @@ app = Flask(__name__)
 conn = sqlite3.connect('board.db')
 c = conn.cursor()
 
+
+@app.route("/")
+def index():
+    if request.method == "GET":
+
+    return render_template("index.html")
+
+
+
+@app.route("/input", methods=["GET", "POST"])
+def input():
+    if request.method == "POST":
+       
+        return redirect("/")
+
+    else:
+        return render_template("buy.html")
