@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <html lang="en">
+    <form action="/input" method="post">
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,69 +15,76 @@
 
         <body>
             <div class="mb-3">
-                <label for="mailaddressinput" class="form-label">メールアドレス</label>
-                <input type="email" class="form-control" id="mailaddressinput" placeholder="name@example.com">
+                <label for="titleinput" class="form-label">募集プロジェクト名</label>
+                <input class="form-control" type="title" placeholder="Project name" name="project">
             </div>
 
-            <label for="languageinput" class="form-label">使用したい言語&nbsp;</label>
-            <input class="checklist" type="checkbox" value="" id="Check_all">
-            <label class="checklist" for="Check_all">全て選択 / 解除</label>
+            <div class="mb-3">
+                <label for="mailaddressinput" class="form-label">メールアドレス</label>
+                <input type="email" class="form-control" id="mailaddressinput" placeholder="name@example.com" name="mail">
+            </div>
 
             <div>
-                <input class="checklist" type="checkbox" value="" id="Check1">
-                <label class="checklist" for="Check1">Python&nbsp;</label>
+                <label for="languageinput" class="form-label">使用したい言語&nbsp;</label>
+                <input class="checklist" type="checkbox" value="" id="Check_all">
+                <label class="checklist" for="Check_all">全て選択 / 解除</label>
 
-                <input class="checklist" type="checkbox" value="" id="Check2">
-                <label class="checklist" for="Check2">Java&nbsp;</label>
+                <p>
+                    <input class="checklist" type="checkbox" value="" id="Check1" name="language">
+                    <label class="checklist" for="Check1">Python&nbsp;</label>
 
-                <input class="checklist" type="checkbox" value="" id="Check3">
-                <label class="checklist" for="Check3">Javascript&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="" id="Check2" name="language">
+                    <label class="checklist" for="Check2">Java&nbsp;</label>
 
-                <input class="checklist" type="checkbox" value="" id="Check4">
-                <label class="checklist" for="Check4">C#&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="" id="Check3" name="language">
+                    <label class="checklist" for="Check3">Javascript&nbsp;</label>
 
-                <input class="checklist" type="checkbox" value="" id="Check5">
-                <label class="checklist" for="Check5">C/C++&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="" id="Check4" name="language">
+                    <label class="checklist" for="Check4">C#&nbsp;</label>
 
-                <input class="checklist" type="checkbox" value="" id="Check6">
-                <label class="checklist" for="Check6">PHP&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="" id="Check5" name="language">
+                    <label class="checklist" for="Check5">C/C++&nbsp;</label>
 
-                <input class="checklist" type="checkbox" value="" id="Check7">
-                <label class="checklist" for="Check7">R&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="" id="Check6" name="language">
+                    <label class="checklist" for="Check6">PHP&nbsp;</label>
 
-                <input class="checklist" type="checkbox" value="" id="Check8">
-                <label class="checklist" for="Check8">Typescript&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="" id="Check7" name="language">
+                    <label class="checklist" for="Check7">R&nbsp;</label>
 
-                <input class="checklist" type="checkbox" value="" id="Check9">
-                <label class="checklist" for="Check9">Swift&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="" id="Check8" name="language">
+                    <label class="checklist" for="Check8">Typescript&nbsp;</label>
 
-                <input class="checklist" type="checkbox" value="" id="Check10">
-                <label class="checklist" for="Check10">Go&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="" id="Check9" name="language">
+                    <label class="checklist" for="Check9">Swift&nbsp;</label>
 
-                <input class="checklist" type="checkbox" value="" id="Check11">
-                <label class="checklist" for="Check11">Ruby&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="" id="Check10" name="language">
+                    <label class="checklist" for="Check10">Go&nbsp;</label>
 
-                <input class="checklist" type="checkbox" value="" id="Check12">
-                <label class="checklist" for="Check12">PHP&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="" id="Check11" name="language">
+                    <label class="checklist" for="Check11">Ruby&nbsp;</label>
 
-                <input class="checklist" type="checkbox" value="" id="Check13">
-                <label class="checklist" for="Check13">HTML&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="" id="Check12" name="language">
+                    <label class="checklist" for="Check12">PHP&nbsp;</label>
 
-                <input class="checklist" type="checkbox" value="" id="Check14">
-                <label class="checklist" for="Check14">CSS&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="" id="Check13" name="language">
+                    <label class="checklist" for="Check13">HTML&nbsp;</label>
 
-                <input class="checklist" type="checkbox" value="" id="Check15">
-                <label class="checklist" for="Check15">SQL&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="" id="Check14" name="language">
+                    <label class="checklist" for="Check14">CSS&nbsp;</label>
 
-                <input class="checklist" type="checkbox" value="" id="Check16">
-                <label class="checklist" for="Check16">その他&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="" id="Check15" name="language">
+                    <label class="checklist" for="Check15">SQL&nbsp;</label>
+
+                    <input class="checklist" type="checkbox" value="" id="Check16" name="language">
+                    <label class="checklist" for="Check16">その他&nbsp;</label>
+                </p>
             </div>
 
             <p></p>
 
             <div class="mb-3">
                 <label for="genreinput" class="form-label">作りたいジャンル</label>
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" aria-label="Default select example" name="genre">
                     <option disabled selected>Open this select menu</option>
                     <option value="1">webアプリ</option>
                     <option value="2">ゲーム</option>
@@ -91,14 +98,14 @@
             <div class="mb-3">
                 <label for="periodinput" class="form-label">募集取りやめまでの期間</label>
                 <p>
-                    <input type="date" id="periodinput">
+                    <input type="date" id="periodinput" name="period">
                 </p>
             </div>
 
 
             <div class="mb-3">
                 <label for="completeperiodinput" class="form-label">完成までの目安期間</label>
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" aria-label="Default select example" name="complete">
                     <option disabled selected>Open this select menu</option>
                     <option value="1">1ヶ月以内</option>
                     <option value="2">1ヶ月~3ヶ月</option>
@@ -108,7 +115,7 @@
 
             <div class="mb-3">
                 <label for="wantpersoninput" class="form-label">募集する人のレベル</label>
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" aria-label="Default select example" name="person">
                     <option disabled selected>Open this select menu</option>
                     <option value="1">初級</option>
                     <option value="2">中級</option>
@@ -118,7 +125,7 @@
 
             <div class="mb-3">
                 <label for="commentinput" class="form-label">コメント</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"  name="text"></textarea>
             </div>
 
             <button class="btn btn-primary" type="submit">Submit</button>
@@ -149,5 +156,5 @@
                 };
             </script>
         </body>
-    </html>
+    </form>
 {% endblock %}
