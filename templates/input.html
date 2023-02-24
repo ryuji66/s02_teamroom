@@ -16,61 +16,61 @@
         <body>
             <div class="mb-3">
                 <label for="mailaddressinput" class="form-label">メールアドレス</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                <input type="email" class="form-control" id="mailaddressinput" placeholder="name@example.com">
             </div>
 
             <label for="languageinput" class="form-label">使用したい言語&nbsp;</label>
-            <input type="checkbox" id="Check_all">全て選択 / 解除
+            <input class="checklist" type="checkbox" value="" id="Check_all">
+            <label class="checklist" for="Check_all">全て選択 / 解除</label>
 
             <div>
-                <input class="form-check-input1" type="checkbox" value="" id="Check1">
-                <label class="form-check-label1" for="flexCheckDefault">Python&nbsp;</label>
+                <input class="checklist" type="checkbox" value="" id="Check1">
+                <label class="checklist" for="Check1">Python&nbsp;</label>
 
-                <input class="form-check-input2" type="checkbox" value="" id="Check2">
-                <label class="form-check-label2" for="flexCheckDefault">Java&nbsp;</label>
+                <input class="checklist" type="checkbox" value="" id="Check2">
+                <label class="checklist" for="Check2">Java&nbsp;</label>
 
-                <input class="form-check-input3" type="checkbox" value="" id="Check3">
-                <label class="form-check-label3" for="flexCheckDefault">Javascript&nbsp;</label>
+                <input class="checklist" type="checkbox" value="" id="Check3">
+                <label class="checklist" for="Check3">Javascript&nbsp;</label>
 
-                <input class="form-check-input4" type="checkbox" value="" id="Check4">
-                <label class="form-check-label4" for="flexCheckDefault">C#&nbsp;</label>
+                <input class="checklist" type="checkbox" value="" id="Check4">
+                <label class="checklist" for="Check4">C#&nbsp;</label>
 
-                <input class="form-check-input5" type="checkbox" value="" id="Check5">
-                <label class="form-check-label5" for="flexCheckDefault">C/C++&nbsp;</label>
+                <input class="checklist" type="checkbox" value="" id="Check5">
+                <label class="checklist" for="Check5">C/C++&nbsp;</label>
 
-                <input class="form-check-input6" type="checkbox" value="" id="Check6">
-                <label class="form-check-label6" for="flexCheckDefault">PHP&nbsp;</label>
+                <input class="checklist" type="checkbox" value="" id="Check6">
+                <label class="checklist" for="Check6">PHP&nbsp;</label>
 
-                <input class="form-check-input7" type="checkbox" value="" id="Check7">
-                <label class="form-check-label7" for="flexCheckDefault">R&nbsp;</label>
+                <input class="checklist" type="checkbox" value="" id="Check7">
+                <label class="checklist" for="Check7">R&nbsp;</label>
 
-                <input class="form-check-input8" type="checkbox" value="" id="Check8">
-                <label class="form-check-label8" for="flexCheckDefault">Typescript&nbsp;</label>
+                <input class="checklist" type="checkbox" value="" id="Check8">
+                <label class="checklist" for="Check8">Typescript&nbsp;</label>
 
-                <input class="form-check-input9" type="checkbox" value="" id="Check9">
-                <label class="form-check-label9" for="flexCheckDefault">Swift&nbsp;</label>
+                <input class="checklist" type="checkbox" value="" id="Check9">
+                <label class="checklist" for="Check9">Swift&nbsp;</label>
 
-                <input class="form-check-input10" type="checkbox" value="" id="Check10">
-                <label class="form-check-label10" for="flexCheckDefault">Go&nbsp;</label>
+                <input class="checklist" type="checkbox" value="" id="Check10">
+                <label class="checklist" for="Check10">Go&nbsp;</label>
 
-                <input class="form-check-input11" type="checkbox" value="" id="Check11">
-                <label class="form-check-label11" for="flexCheckDefault">Ruby&nbsp;</label>
+                <input class="checklist" type="checkbox" value="" id="Check11">
+                <label class="checklist" for="Check11">Ruby&nbsp;</label>
 
-                <input class="form-check-input12" type="checkbox" value="" id="Check12">
-                <label class="form-check-label12" for="flexCheckDefault">PHP&nbsp;</label>
+                <input class="checklist" type="checkbox" value="" id="Check12">
+                <label class="checklist" for="Check12">PHP&nbsp;</label>
 
-                <input class="form-check-input13" type="checkbox" value="" id="Check13">
-                <label class="form-check-label13" for="flexCheckDefault">HTML&nbsp;</label>
+                <input class="checklist" type="checkbox" value="" id="Check13">
+                <label class="checklist" for="Check13">HTML&nbsp;</label>
 
-                <input class="form-check-input14" type="checkbox" value="" id="Check14">
-                <label class="form-check-label14" for="flexCheckDefault">CSS&nbsp;</label>
+                <input class="checklist" type="checkbox" value="" id="Check14">
+                <label class="checklist" for="Check14">CSS&nbsp;</label>
 
-                <input class="form-check-input15" type="checkbox" value="" id="Check15">
-                <label class="form-check-label15" for="flexCheckDefault">SQL&nbsp;</label>
+                <input class="checklist" type="checkbox" value="" id="Check15">
+                <label class="checklist" for="Check15">SQL&nbsp;</label>
 
-                <input class="form-check-input16" type="checkbox" value="" id="Check16">
-                <label class="form-check-label16" for="flexCheckDefault">その他&nbsp;</label>
-
+                <input class="checklist" type="checkbox" value="" id="Check16">
+                <label class="checklist" for="Check16">その他&nbsp;</label>
             </div>
 
             <p></p>
@@ -90,13 +90,11 @@
 
             <div class="mb-3">
                 <label for="periodinput" class="form-label">募集取りやめまでの期間</label>
-                <select class="form-select" aria-label="Default select example">
-                    <option disabled selected>Open this select menu</option>
-                    <option value="1">10日</option>
-                    <option value="2">20日</option>
-                    <option value="3">30日</option>
-                </select>
+                <p>
+                    <input type="date" id="periodinput">
+                </p>
             </div>
+
 
             <div class="mb-3">
                 <label for="completeperiodinput" class="form-label">完成までの目安期間</label>
@@ -126,6 +124,30 @@
             <button class="btn btn-primary" type="submit">Submit</button>
 
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+            <script>
+                let checkbox_all = document.querySelector("#check_all");
+
+                let checkbox_list = document.querySelectorAll(".checklist");
+
+                checkbox_all.addEventListener('change', change_all);
+
+                function change_all() {
+	                if (checkbox_all.checked) {
+		                for (let i in checkbox_list) {
+			                if (checkbox_list.hasOwnProperty(i)) {
+				                checkbox_list[i].checked = true;
+			                }
+		                }
+
+	                } else {
+		                for (let i in checkbox_list) {
+			                if (checkbox_list.hasOwnProperty(i)) {
+				                checkbox_list[i].checked = false;
+			                }
+		                }
+	                }
+                };
+            </script>
         </body>
     </html>
 {% endblock %}
