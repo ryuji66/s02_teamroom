@@ -32,4 +32,4 @@ def input():
         return redirect("/")
 
     else:
-        return render_template("buy.html")
+        return render_template("input.html")
