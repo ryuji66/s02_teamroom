@@ -21,7 +21,7 @@ c = conn.cursor()
 def index():
     if request.method == "GET":
 
-    return render_template("index.html")
+        return render_template("index.html")
 
 
 
