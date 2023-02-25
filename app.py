@@ -42,3 +42,13 @@ def register():
 
     else:
         return render_template("register.html")
+
+
+@app.route("/mypage", methods=["GET", "POST"])
+def mypage():
+    if request.method == "POST":
+       
+        return redirect("/")
+
+    else:
+        return render_template("mypage.html")
