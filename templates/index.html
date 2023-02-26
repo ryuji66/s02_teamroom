@@ -73,4 +73,19 @@
             <p>Content goes here</p>
         </div>
     </div>
+
+    {% for entry in entries %}
+    <div class="box">
+      <div class="box-header">
+        <h2>{{ entry.title }}</h2>
+        <button class="tag">{{ entry.lang_name }}</button>
+        <button class="tag">{{ entry.genre_name }}</button>
+      </div>
+      <div class="box-content">
+        <p>{{ entry.mail_address }} - {{ entry.time }} - {{ entry.level }}</p>
+        <p>{{ entry.body }}</p>
+      </div>
+    </div>
+  {% endfor %}
+  
 {% endblock %}
