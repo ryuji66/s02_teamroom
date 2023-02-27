@@ -20,19 +20,19 @@ c = conn.cursor()
 @app.route("/")
 def index():
     if request.method == "GET":
-    # entryテーブルと中間テーブルを結合して必要な情報を取得
-    #query = '''
-        #SELECT entry.title, lang.name, genre.name, entry.mail_address, entry.time, entry.level, entry.body
-        #FROM entry
-        #JOIN entry_lang ON entry.id = entry_lang.entry_id
-        #JOIN lang ON entry_lang.lang_id = lang.id
-        #JOIN entry_genre ON entry.id = entry_genre.entry_id
-        #JOIN genre ON entry_genre.genre_id = genre.id
-    #'''
-    #c.execute(query)
-    #data = c.fetchall()
+        # entryテーブルと中間テーブルを結合して必要な情報を取得
+        #query = '''
+            #SELECT entry.title, lang.name, genre.name, entry.mail_address, entry.time, entry.level, entry.body
+            #FROM entry
+            #JOIN entry_lang ON entry.id = entry_lang.entry_id
+            #JOIN lang ON entry_lang.lang_id = lang.id
+            #JOIN entry_genre ON entry.id = entry_genre.entry_id
+            #JOIN genre ON entry_genre.genre_id = genre.id
+        #'''
+        #c.execute(query)
+        #data = c.fetchall()
 
-    return render_template("index.html")
+        return render_template("index.html")
 
 
 
