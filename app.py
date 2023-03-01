@@ -19,7 +19,7 @@ c = conn.cursor()
 
 @app.before_request
 def before_request():
-    g.db = sqlite3.connect('database.db')
+    g.db = sqlite3.connect('board.db')
 
 
 @app.route("/")
