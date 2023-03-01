@@ -12,7 +12,7 @@ import sqlite3
 
 app = Flask(__name__)
 
-# データベースに接続
+# データベース(sqlite3)に接続
 conn = sqlite3.connect('board.db')
 c = conn.cursor()
 
