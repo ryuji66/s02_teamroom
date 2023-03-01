@@ -39,17 +39,25 @@ def index():
     #c.execute(query)
 
     # entriesテーブルのデータを取得
+    #データベース接続を開き、クエリを実行
     db = get_db()
     c = db.cursor()
     c.execute(query)
-
+    #クエリ実行後取得したデータをentriesに格納
     entries = c.fetchall()
 
+    #entriesテーブルすべてのデータを取得してentries変数に格納
     cur = g.db.cursor()
     cur.execute('SELECT * FROM entries')
     entries = cur.fetchall()
+
+    #usersテーブルすべてのデータを取得してusers変数に格納
+    cur.execute('SELECT * FROM users')
+    users = cur.fetchall()
+
+    #index.htmlテンプレートにレンダリング。変数2つをテンプレートに渡す
     cur.close()
-    return render_template('index.html', entries=entries)
+    return render_template('index.html', entries=entries, users=users)
 
 
 @app.route("/input", methods=["GET", "POST"])
