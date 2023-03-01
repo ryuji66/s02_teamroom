@@ -31,8 +31,8 @@ def get_db():
 def index():
     # entryテーブルと中間テーブルを結合して必要な情報を取得
     query = '''
-    SELECT entry.title, lang.name, genre.name, entry.mail_address, entry.time, entry.level, entry.body
-    FROM entry
+    SELECT entries.title, lang.name, genre.name, entries.mail_address, entries.time, entries.level, entries.body
+    FROM entries
     JOIN entry_lang ON entry.id = entry_lang.entry_id
     JOIN lang ON entry_lang.lang_id = lang.id
     JOIN entry_genre ON entry.id = entry_genre.entry_id
