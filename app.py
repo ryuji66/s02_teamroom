@@ -21,8 +21,10 @@ c = conn.cursor()
 def before_request():
     g.db = sqlite3.connect('database.db')
 
+
 @app.route("/")
 def index():
+    #if request.method == "GET":
         # entryテーブルと中間テーブルを結合して必要な情報を取得
         #query = '''
             #SELECT entry.title, lang.name, genre.name, entry.mail_address, entry.time, entry.level, entry.body
@@ -36,14 +38,17 @@ def index():
         #data = c.fetchall()
 
         # entriesテーブルのデータを取得
-        c.execute('SELECT * FROM entries')
-        entries = c.fetchall()
+    db = get_db()
+    c = db.cursor()
+    c.execute('SELECT * FROM entries')
 
-        cur = g.db.cursor()
-        cur.execute('SELECT * FROM entries')
-        entries = cur.fetchall()
-        cur.close()
-        return render_template('index.html', entries=entries)
+    entries = c.fetchall()
+
+    cur = g.db.cursor()
+    cur.execute('SELECT * FROM entries')
+    entries = cur.fetchall()
+    cur.close()
+    return render_template('index.html', entries=entries)
 
 
 @app.route("/input", methods=["GET", "POST"])
