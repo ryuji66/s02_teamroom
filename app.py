@@ -29,11 +29,11 @@ def get_db():
 
 @app.route("/")
 def index():
-    # entryテーブルと中間テーブルを結合して必要な情報を取得
+    # entriesテーブルと中間テーブルを結合して必要な情報を取得
     query = '''
     SELECT entries.title, lang.name, genre.name, entries.mail_address, entries.time, entries.level, entries.body
     FROM entries
-    JOIN language_to_entry ON entries.id = lang_to_entry.entries_id
+    JOIN language_to_entries ON entries.id = lang_to_entry.entries_id
     JOIN languages ON language_to_entry.lang_id = lang.id
     JOIN entry_genre ON entry.id = entry_genre.entry_id
     JOIN genre ON entry_genre.genre_id = genre.id
