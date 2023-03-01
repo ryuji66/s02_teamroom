@@ -19,7 +19,6 @@ c = conn.cursor()
 
 @app.route("/")
 def index():
-    if request.method == "GET":
         # entryテーブルと中間テーブルを結合して必要な情報を取得
         #query = '''
             #SELECT entry.title, lang.name, genre.name, entry.mail_address, entry.time, entry.level, entry.body
@@ -32,7 +31,22 @@ def index():
         #c.execute(query)
         #data = c.fetchall()
 
-        return render_template("index.html")
+        # entriesテーブルのデータを取得
+        c.execute('SELECT * FROM entries')
+        entries = c.fetchall()
+
+        # langテーブルのデータを取得
+        c.execute('SELECT * FROM lang')
+        lang = c.fetchall()
+
+        # entry_to_langテーブルのデータを取得
+        c.execute('SELECT * FROM entry_to_lang')
+        entry_to_lang = c.fetchall()
+
+        # データベースとの接続を終了
+        conn.close()
+
+        return render_template('index.html', entries=entries, lang=lang, entry_to_lang=entry_to_lang)
 
 
 
