@@ -33,8 +33,8 @@ def index():
     query = '''
     SELECT entries.*, languages.name
     FROM entries
-    JOIN entry_to_lang ON entries.entry_id = entry_to_lang.entry_id
-    JOIN languages ON entry_to_lang.language_id = languages.language_id;
+    JOIN language_to_entry ON entries.entry_id = language_to_entry.entry_id
+    JOIN languages ON language_to_entry.language_id = languages.language_id;
     '''
     #c.execute(query)
 
