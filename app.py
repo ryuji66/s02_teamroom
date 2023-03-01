@@ -30,20 +30,20 @@ def get_db():
 @app.route("/")
 def index():
     # entryテーブルと中間テーブルを結合して必要な情報を取得
-    #query = '''
-    #SELECT entry.title, lang.name, genre.name, entry.mail_address, entry.time, entry.level, entry.body
-    #FROM entry
-    #JOIN entry_lang ON entry.id = entry_lang.entry_id
-    #JOIN lang ON entry_lang.lang_id = lang.id
-    #JOIN entry_genre ON entry.id = entry_genre.entry_id
-    #JOIN genre ON entry_genre.genre_id = genre.id
-    #'''
+    query = '''
+    SELECT entry.title, lang.name, genre.name, entry.mail_address, entry.time, entry.level, entry.body
+    FROM entry
+    JOIN entry_lang ON entry.id = entry_lang.entry_id
+    JOIN lang ON entry_lang.lang_id = lang.id
+    JOIN entry_genre ON entry.id = entry_genre.entry_id
+    JOIN genre ON entry_genre.genre_id = genre.id
+    '''
     #c.execute(query)
 
     # entriesテーブルのデータを取得
     db = get_db()
     c = db.cursor()
-    c.execute('SELECT * FROM entries')
+    c.execute(query)
 
     entries = c.fetchall()
 
