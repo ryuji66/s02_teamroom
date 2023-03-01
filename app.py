@@ -21,10 +21,11 @@ c = conn.cursor()
 def before_request():
     g.db = sqlite3.connect('board.db')
 
-@app.get_db
-def get/db():
-if 'db' not in g:
-    g.db
+
+def get_db():
+    if 'db' not in g:
+        g.db = sqlite3.connect('board.db')
+    return g.db.cursor()
 
 @app.route("/")
 def index():
