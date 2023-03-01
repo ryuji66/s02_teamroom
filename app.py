@@ -16,6 +16,9 @@ app = Flask(__name__)
 conn = sqlite3.connect('board.db')
 c = conn.cursor()
 
+@app.before_request
+def before_request():
+    g.db = sqlite3.connect('database.db')
 
 @app.route("/")
 def index():
@@ -35,19 +38,11 @@ def index():
         c.execute('SELECT * FROM entries')
         entries = c.fetchall()
 
-        # langテーブルのデータを取得
-        c.execute('SELECT * FROM lang')
-        lang = c.fetchall()
-
-        # entry_to_langテーブルのデータを取得
-        c.execute('SELECT * FROM entry_to_lang')
-        entry_to_lang = c.fetchall()
-
-        # データベースとの接続を終了
-        conn.close()
-
-        return render_template('index.html', entries=entries, lang=lang, entry_to_lang=entry_to_lang)
-
+        cur = g.db.cursor()
+        cur.execute('SELECT * FROM entries')
+        entries = cur.fetchall()
+        cur.close()
+        return render_template('index.html', entries=entries)
 
 
 @app.route("/input", methods=["GET", "POST"])
