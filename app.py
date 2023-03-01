@@ -9,7 +9,7 @@ import datetime
 import math
 #from helpers import apology, login_required, lookup, usd
 import sqlite3
-from flask import g
+from flask import current_app, g
 
 app = Flask(__name__)
 
