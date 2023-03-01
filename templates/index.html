@@ -11,69 +11,19 @@
 {% block main %}
    <!-- <div class="tag">aaaaaaaaaaaaa</div> -->
    <!-- ナビゲーションバーの下に追加したいものはここから下に書いてください -->
-   <div class="container">
+   <!--
+    <div class="container">
     <div class="box">
-      <!--boxの中にさらにheaderとcontentを分ける-->
-        <div class="box-header">
-            <h2>Box 1</h2>
-            <button class="tag">tag1</button>
-            <button class="tag">tag1</button>
-        </div>
-        <div class="box-content">
-            <p>Content goes here</p>
-        </div>
+      <div class="box-header">
+        <h2>Box 1</h2>
+        <button class="tag">tag1</button>
+        <button class="tag">tag1</button>
     </div>
-
-    <div class="box">
-        <div class="box-header">
-            <h2>Box 2</h2>
-            <button class="tag">tag2</button>
-        </div>
-        <div class="box-content">
-            <p>Content goes here</p>
-        </div>
+    <div class="box-content">
+        <p>Content goes here</p>
     </div>
-
-    <div class="box">
-        <div class="box-header">
-            <h2>Box 3</h2>
-            <button class="tag">tag3</button>
-        </div>
-        <div class="box-content">
-            <p>Content goes here</p>
-        </div>
-    </div>
-
-    <div class="box">
-        <div class="box-header">
-            <h2>Box 4</h2>
-            <button class="tag">tag4</button>
-        </div>
-        <div class="box-content">
-            <p>Content goes here</p>
-        </div>
-    </div>
-
-    <div class="box">
-        <div class="box-header">
-            <h2>Box 5</h2>
-            <button class="tag">tag5</button>
-        </div>
-        <div class="box-content">
-            <p>Content goes here</p>
-        </div>
-    </div>
-
-    <div class="box">
-        <div class="box-header">
-            <h2>Box 6</h2>
-            <button class="tag">tag6</button>
-        </div>
-        <div class="box-content">
-            <p>Content goes here</p>
-        </div>
-    </div>
-
+   </div>
+   -->
     {% for entry in entries %}
     <div class="box">
       <div class="box-header">
@@ -87,5 +37,5 @@
       </div>
     </div>
   {% endfor %}
-  
+
 {% endblock %}
