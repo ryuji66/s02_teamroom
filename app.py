@@ -25,7 +25,7 @@ def before_request():
 def get_db():
     if 'db' not in g:
         g.db = sqlite3.connect('board.db')
-    return g.db.cursor()
+    return g.db
 
 @app.route("/")
 def index():
