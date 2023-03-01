@@ -33,8 +33,8 @@ def index():
     query = '''
     SELECT entries.title, lang.name, genre.name, entries.mail_address, entries.time, entries.level, entries.body
     FROM entries
-    JOIN entry_lang ON entry.id = entry_lang.entry_id
-    JOIN lang ON entry_lang.lang_id = lang.id
+    JOIN language_to_entry ON entries.id = lang_to_entry.entries_id
+    JOIN languages ON language_to_entry.lang_id = lang.id
     JOIN entry_genre ON entry.id = entry_genre.entry_id
     JOIN genre ON entry_genre.genre_id = genre.id
     '''
