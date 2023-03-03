@@ -2,11 +2,16 @@
 
 {% block title %}
     My page
-    
+
 {% endblock %}
 
 {% block main %}
-   <div class="tag">aaaaaaaaaaaaa</div>
-   <!-- ナビゲーションバーの下に追加したいものはここから下に書いてください -->
-
+<!-- ナビゲーションバーの下に追加したいものはここから下に書いてください -->
+<h1>マイページ</h1>
+{% for entry in entries %}
+    <div>
+        <h2>{{ entry.title }}</h2>
+        <p>{{ entry.content }}</p>
+    </div>
+{% endfor %}
 {% endblock %}
