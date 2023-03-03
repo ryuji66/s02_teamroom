@@ -180,6 +180,9 @@ def register():
 
 @app.route("/mypage", methods=["GET", "POST"])
 def mypage():
+    user_id = session.get('user_id', None)
+    
+
     if request.method == "POST":
 
         return redirect("/")
