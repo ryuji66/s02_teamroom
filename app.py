@@ -47,8 +47,8 @@ def index():
     db = get_db()
 
     #entriesテーブルすべてのデータを取得してentries変数に格納
-    cur = g.db.cursor()
-    cur.execute('SELECT * FROM entries')
+    cur = db.cursor()
+    cur.execute(query)
     entries = cur.fetchall()
 
     #usersテーブルすべてのデータを取得してusers変数に格納
