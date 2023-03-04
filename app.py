@@ -50,12 +50,7 @@ def index():
     c.execute(query)
     #クエリ実行後取得したデータをentriesに格納
     entries = c.fetchall()
-
-    #entriesテーブルすべてのデータを取得してentries変数に格納
-    cur = g.db.cursor()
-    cur.execute('SELECT * FROM entries')
-    entries = cur.fetchall()
-
+    
     #usersテーブルすべてのデータを取得してusers変数に格納
     cur.execute('SELECT * FROM users')
     users = cur.fetchall()
