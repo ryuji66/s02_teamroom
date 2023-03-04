@@ -20,7 +20,6 @@ Session(app)
 
 # データベース(sqlite3)に接続
 conn = sqlite3.connect('board.db')
-c = conn.cursor()
 
 @app.before_request
 def before_request():
@@ -46,10 +45,6 @@ def index():
     # entriesテーブルのデータを取得
     #データベース接続を開き、クエリを実行
     db = get_db()
-    c = db.cursor()
-    c.execute(query)
-    #クエリ実行後取得したデータをentriesに格納
-    entries = c.fetchall()
 
     #entriesテーブルすべてのデータを取得してentries変数に格納
     cur = g.db.cursor()
