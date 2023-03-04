@@ -41,12 +41,19 @@ def index():
     JOIN language_to_entry ON entries.entry_id = language_to_entry.entry_id
     JOIN languages ON language_to_entry.language_id = languages.language_id;
     '''
+    #c.execute(query)
+
     # entriesテーブルのデータを取得
     #データベース接続を開き、クエリを実行
     db = get_db()
-    cur = db.cursor()
-    cur.execute(query)
+    c = db.cursor()
+    c.execute(query)
+    #クエリ実行後取得したデータをentriesに格納
+    entries = c.fetchall()
+
     #entriesテーブルすべてのデータを取得してentries変数に格納
+    cur = g.db.cursor()
+    cur.execute('SELECT * FROM entries')
     entries = cur.fetchall()
 
     #usersテーブルすべてのデータを取得してusers変数に格納
