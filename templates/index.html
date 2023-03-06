@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='button.css') }}">
 {% endblock %}
+
 {% block main %}
    <div class="box-container">
    {% for entry in entries %}
@@ -14,7 +15,7 @@
            <div class="box-header">
                <h2>{{ entry.title }}</h2>
                {% for language in entry.languages %}
-                   <button class="tag">{{ language.name }}</button>
+               <button class="tag">{{ language.name }}</button>
                {% endfor %}
            </div>
            <div class="box-content">
