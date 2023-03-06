@@ -37,6 +37,18 @@ db = SQL("sqlite:///board.db")
 
 @app.route("/")
 def index():
+
+    
+    # genresの情報を取ってきてgenresに入れる
+    genres = db.execute("SELECT * FROM genres")
+    # その他を削除する
+    genres.pop()
+
+    # languaesの情報を取ってきてlangagesに入れる
+    languages = db.execute("SELECT * FROM languages")
+    # その他を削除する
+    languages.pop()
+
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
     rows = db.execute("""
         SELECT entries.*, languages.name
