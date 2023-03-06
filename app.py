@@ -37,8 +37,6 @@ db = SQL("sqlite:///board.db")
 
 @app.route("/")
 def index():
-
-    
     # genresの情報を取ってきてgenresに入れる
     genres = db.execute("SELECT * FROM genres")
     # その他を削除する
@@ -59,7 +57,7 @@ def index():
         ON languages.language_id = language_to_entry.language_id;
     """)
 
-    return render_template('index.html', entries=rows)
+    return render_template('index.html', genres=genres, languages=languages, entries=rows)
 
 
 @app.route("/input", methods=["GET", "POST"])
