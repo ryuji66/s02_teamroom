@@ -45,12 +45,12 @@ def index():
     #entries = cur.fetchall()
 
     #usersテーブルすべてのデータを取得してusers変数に格納
-    #cur.execute('SELECT * FROM users')
+    users_db = db.execute("SELECT * FROM users")
     #users = cur.fetchall()
 
     #index.htmlテンプレートにレンダリング。変数2つをテンプレートに渡す
     #cur.close()
-    return render_template('index.html', entries=entries_db, users=users)
+    return render_template('index.html', entries=entries_db, users=users_db)
 
 
 @app.route("/input", methods=["GET", "POST"])
