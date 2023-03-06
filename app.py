@@ -19,14 +19,21 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # データベース(sqlite3)に接続
-conn = sqlite3.connect('board.db')
+#conn = sqlite3.connect('board.db')
+
+#@app.before_request
+#def before_request():
+    #g.db = sqlite3.connect('board.db')
 
 
+#def get_db():
+    #if 'db' not in g:
+        #g.db = sqlite3.connect('board.db')
+    #return g.db
 
-def get_db():
-    if 'db' not in g:
-        g.db = sqlite3.connect('board.db')
-    return g.db
+# Configure CS50 Library to use SQLite database CS50のパッケージを使用
+db = SQL("sqlite:///board.db")
+
 
 @app.route("/")
 def index():
