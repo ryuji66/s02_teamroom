@@ -24,9 +24,9 @@
            <div class="box-header">
                <h2>{{ entry.title }}</h2>
                {% for language in entry.languages %}
-               <button class="tag">{{ language.name }}</button>
+               <button class="tag_languages">{{ language.name }}</button>
                {% endfor %}
-               <button class="tag">{{ entry.genre }}</button>
+               <button class="tag_genres">{{ entry.genre }}</button>
            </div>
            <div class="box-content">
                <p><a href="mailto:{{ entry.mail_address }}">{{ entry.mail_address }}</a></p>
