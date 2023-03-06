@@ -39,11 +39,6 @@ db = SQL("sqlite:///board.db")
 def index():
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
     entries_db = db.execute(" SELECT entries.*, languages.name FROM entries JOIN language_to_entry ON entries.entry_id = language_to_entry.entry_id JOIN languages ON language_to_entry.language_id = languages.language_id")
-    #c.execute(query)
-
-    # entriesテーブルのデータを取得
-    #データベース接続を開き、クエリを実行
-    db = get_db()
 
     #entriesテーブルすべてのデータを取得してentries変数に格納
     cur = db.cursor()
