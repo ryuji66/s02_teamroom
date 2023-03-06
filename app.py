@@ -40,8 +40,9 @@ def index():
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
     entries_db = db.execute(" SELECT entries.*, languages.name FROM entries JOIN language_to_entry ON entries.entry_id = language_to_entry.entry_id JOIN languages ON language_to_entry.language_id = languages.language_id")
     print(entries_db)
+    print("entries_db")
 
-    return render_template('index.html', entries=entries_db)お
+    return render_template('index.html', entries=entries_db)
 
 
 @app.route("/input", methods=["GET", "POST"])
