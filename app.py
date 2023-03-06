@@ -41,8 +41,8 @@ def index():
     rows = db.execute("SELECT * FROM entries")
     print(rows)
     print("rows")
-    
-    return render_template('index.html', entries=entries_db)
+
+    return render_template('index.html', entries=rows)
 
 
 @app.route("/input", methods=["GET", "POST"])
