@@ -13,16 +13,10 @@
    <div class="box">
        <div class="box-header">
            <h2>{{ entry.title }}</h2>
-           {% for language in entry.languages %}
-               <button class="tag">{{ language.name }}</button>
-           {% endfor %}
        </div>
        <div class="box-content">
            <p>{{ entry.mail_address }}</p>
-           <p>{{ entry.time }}</p>
            <p>{{ entry.level }}</p>
-           <p>{{ entry.day_posted }}</p>
-           <p>{{ entry.day_end }}</p>
            <p>{{ entry.body }}</p>
        </div>
    </div>
