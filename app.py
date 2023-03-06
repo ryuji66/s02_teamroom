@@ -6,10 +6,10 @@ from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 import datetime
-import math
-#from helpers import apology, login_required
-import sqlite3
-from flask import current_app, g
+# import math
+# from helpers import apology, login_required
+# import sqlite3
+# from flask import current_app, g
 
 app = Flask(__name__)
 
@@ -38,7 +38,7 @@ db = SQL("sqlite:///board.db")
 @app.route("/")
 def index():
 
-    
+
     # genresの情報を取ってきてgenresに入れる
     genres = db.execute("SELECT * FROM genres")
     # その他を削除する
@@ -164,7 +164,7 @@ def register():
             hash_password = generate_password_hash(get_password)
 
         # 新規登録処理
-        user_id = g.db.execute("INSERT INTO users(username, hash) values(?, ?)", get_username, hash_password)
+        user_id = db.execute("INSERT INTO users(username, hash) values(?, ?)", get_username, hash_password)
 
         # ログイン状態にする
         session["user_id"] = user_id
