@@ -21,9 +21,6 @@ Session(app)
 # データベース(sqlite3)に接続
 conn = sqlite3.connect('board.db')
 
-@app.before_request
-def before_request():
-    g.db = sqlite3.connect('board.db')
 
 
 def get_db():
