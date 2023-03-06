@@ -3,7 +3,7 @@
 {% block title %}
     <!-- InputかIndexを書く -->
     <meta charset="UTF-8">
-    <title>投稿一覧</title>
+    <title>Flexbox Example</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='button.css') }}">
 {% endblock %}
@@ -13,10 +13,16 @@
    <div class="box">
        <div class="box-header">
            <h2>{{ entry.title }}</h2>
+           {% for language in entry.languages %}
+               <button class="tag">{{ language.name }}</button>
+           {% endfor %}
        </div>
        <div class="box-content">
            <p>{{ entry.mail_address }}</p>
+           <p>{{ entry.time }}</p>
            <p>{{ entry.level }}</p>
+           <p>{{ entry.day_posted }}</p>
+           <p>{{ entry.day_end }}</p>
            <p>{{ entry.body }}</p>
        </div>
    </div>
