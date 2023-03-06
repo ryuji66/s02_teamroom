@@ -4,21 +4,22 @@
     justify-content: space-between;
   }
 
-  .box {
-    background-color: #ccc;
-    border-radius: 10px;
-    width: calc(33.33% - 10px);
-    margin-bottom: 20px;
-    padding: 10px;
-  }
+.box {
+  background-color: #ccc;
+  border-radius: 10px;
+  width: calc(33.33% - 10px);
+  margin-bottom: 20px;
+  padding: 10px;
+}
 
-  .box-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
+.box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
 
-  .box-content {
-    font-size: 16px;
-  }
+.box-content {
+  font-size: 16px;
+}
+
