@@ -31,6 +31,7 @@
 }
 
 .box-content {
+  text-align: left;
   font-size: 16px;
   padding: 15px;
   color: white;
