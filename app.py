@@ -38,7 +38,7 @@ db = SQL("sqlite:///board.db")
 @app.route("/")
 def index():
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
-    rows = db.execute("SELECT * FROM entries")
+    rows = db.execute("SELECT * FROM entries HAVING is_active==1")
     print(rows)
     print("rows")
 
