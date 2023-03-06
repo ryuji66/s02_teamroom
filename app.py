@@ -38,7 +38,7 @@ db = SQL("sqlite:///board.db")
 @app.route("/")
 def index():
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
-    rows = db.execute("SELECT * FROM entries")
+    rows = db.execute("SELECT entries.*, languages.name FROM entries JOIN language_to_entry ON entries.entry_id = language_to_entry.entry_id JOIN languages ON language_to_entry.language_id = languages.language_id")
 
     return render_template('index.html', entries=rows)
 
