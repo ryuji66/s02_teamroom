@@ -1,9 +1,12 @@
 body {
   background-color: #333333;
 }
+
 .tag_list {
-  
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
+
 .box-container {
     display: flex;
     flex-wrap: wrap;
