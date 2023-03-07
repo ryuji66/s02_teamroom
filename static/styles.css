@@ -1,7 +1,9 @@
 body {
   background-color: #333333;
 }
-
+.tag_list {
+  
+}
 .box-container {
     display: flex;
     flex-wrap: wrap;
