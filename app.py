@@ -109,13 +109,18 @@ def input():
             flash("募集する人のレベルを入力してください")
             return redirect('input')
 
+        # textが入力されてるか確認
+        elif not get_text:
+            flash("テキストを何か入力してください")
+            return redirect('input')
+
         db.execute("INSERT INTO entries (title, mail_address, time, level, genre, day_posted, day_end, body) values (?, ?, ?, ?, ?, ?, ?, ?)", get_project, get_mail, get_complete, get_person, get_genre, get_posted, get_period, get_text)
         # 工夫しがいがありそう
         get_entryid = db.execute("SELECT entry_id FROM entries WHERE title = ? AND mail_address = ? AND time = ? AND level = ? AND genre = ? AND day_posted = ? AND day_end = ? AND body = ?", get_project, get_mail, get_complete, get_person, get_genre, get_posted, get_period, get_text)
 
         for i in get_languagelist:
             get_language = int(i)
-            db.execute("INSERT INTO language_to_entry (language_id, entry_id) values(?, ?)", get_language, get_entryid)
+            db.execute("INSERT INTO language_to_entry (language_id, entry_id) values(?, ?)", get_language, get_entryid[0]["entry_id"])
 
 
         rows = db.execute("""

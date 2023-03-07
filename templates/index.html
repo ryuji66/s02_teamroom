@@ -24,16 +24,17 @@
            <div class="box-header">
                <h2>{{ entry.title }}</h2>
                {% for language in entry.languages %}
-               <button class="tag">{{ language.name }}</button>
+               <button class="tag_languages">{{ language.name }}</button>
                {% endfor %}
-               <button class="tag">{{ entry.genre }}</button>
+               <button class="tag_genres">{{ entry.genre }}</button>
            </div>
            <div class="box-content">
-               <p>{{ entry.mail_address }}</p>
-               <p>{{ entry.time }}</p>
-               <p>{{ entry.level }}</p>
-               <p>{{ entry.day_posted }}</p>
-               <p>{{ entry.day_end }}</p>
+               <p>連絡先 : <a href="mailto:{{ entry.mail_address }}">{{ entry.mail_address }}</a></p>
+               <p>開発予定期間 : {{ entry.time }}</p>
+               <p>募集レベル : {{ entry.level }}</p>
+               <p>投稿日 : {{ entry.day_posted }}</p>
+               <p>募集締切 : {{ entry.day_end }}</p>
+               <p>_______________________________</p>
                <p>{{ entry.body }}</p>
            </div>
        </div>
