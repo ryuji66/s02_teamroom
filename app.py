@@ -37,12 +37,12 @@ db = SQL("sqlite:///board.db")
 
 @app.route("/")
 def index():
-    # genresの情報を取ってきてgenresに入れる
+    # タグボタンの表示名を表示させるためにデータを取ってきてる
     genres = db.execute("SELECT * FROM genres")
     # その他を削除する
     genres.pop()
 
-    # languaesの情報を取ってきてlangagesに入れる
+    # 上と同じ
     languages = db.execute("SELECT * FROM languages")
     # その他を削除する
     languages.pop()
@@ -234,3 +234,32 @@ def mypage():
 
     else:
         return render_template("mypage.html")
+
+
+
+@app.route("/index_tag", methods=["GET", "POST"])
+def index_tag():
+    print("request.form.get(tag)")
+    print(request.form.get('tag_genres'))
+    
+    # タグボタンの表示名を表示させるためにデータを取ってきてる
+    genres = db.execute("SELECT * FROM genres")
+    # その他を削除する
+    genres.pop()
+
+    # 上と同じ
+    languages = db.execute("SELECT * FROM languages")
+    # その他を削除する
+    languages.pop()
+
+    # entriesテーブルと中間テーブルを結合して必要な情報を取得
+    rows = db.execute("""
+        SELECT entries.*, languages.name
+        FROM entries
+        LEFT JOIN language_to_entry
+        ON entries.entry_id = language_to_entry.entry_id
+        LEFT JOIN languages
+        ON languages.language_id = language_to_entry.language_id;
+    """)
+
+    return render_template('index_tag.html', genres=genres, languages=languages, entries=rows)

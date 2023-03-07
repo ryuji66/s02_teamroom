@@ -9,14 +9,17 @@
 {% endblock %}
 
 {% block main %}
-<!-- <div class="box-container_tag"> -->
-    {% for i in genres %}
-    <button name="button" class="tag_genres">{{ i["name"] }}</button>
-    {% endfor %}
-    {% for i in languages %}
-        <button name="button" class="tag_languages">{{ i["name"] }}</button>
-    {% endfor %}
-<!-- </div> -->
+    <!-- タグボタンを表示させるためのコード -->
+    <form action="/index_tag" method="post">
+        <!-- <div class="box-container_tag"> --> 
+            {% for i in genres %}
+            <button name="button" type="submit" class="tag_genres" name="tag_genres" value="{{ i['name']}}">{{ i["name"] }}</button>
+            {% endfor %}
+        {% for i in languages %}
+            <button name="button" type="submit" class="tag_languages" value="{{ i['name']}}">{{ i["name"] }}</button>
+        {% endfor %}
+        <!-- </div> -->
+    </form>
 
    <div class="box-container">
    {% for entry in entries %}
