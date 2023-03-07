@@ -70,6 +70,14 @@ h2 {
   color: white;
 }
 
+nav{
+  background-color: #222222;
+}
+
 nav .navbar-brand{
-  color: yellow
+  color: yellow;
+}
+
+nav .navbar-nav .nav-item .nav-link{
+  color: white
 }
