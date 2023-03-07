@@ -9,9 +9,10 @@
 {% endblock %}
 
 {% block main %}
+<div class="tag_list">
     <!-- タグボタンを表示させるためのコード -->
     <form action="/index_tag" method="post">
-        <!-- <div class="box-container_tag"> --> 
+        <!-- <div class="box-container_tag"> -->
             {% for i in genres %}
             <button name="button" type="submit" class="tag_genres" name="tag_genres" value="{{ i['name']}}">{{ i["name"] }}</button>
             {% endfor %}
@@ -20,8 +21,8 @@
         {% endfor %}
         <!-- </div> -->
     </form>
-
-   <div class="box-container">
+</div>
+<div class="box-container">
    {% for entry in entries %}
        <div class="box">
            <div class="box-header">
@@ -42,5 +43,5 @@
            </div>
        </div>
    {% endfor %}
-   </div>
+</div>
 {% endblock %}
