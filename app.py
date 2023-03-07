@@ -1,15 +1,15 @@
-import os
+# import os
 
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
-from tempfile import mkdtemp
+# from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 import datetime
-import math
-#from helpers import apology, login_required
-import sqlite3
-from flask import current_app, g
+# import math
+# from helpers import apology, login_required
+# import sqlite3
+# from flask import current_app, g
 
 app = Flask(__name__)
 
@@ -66,10 +66,10 @@ def input():
 
         get_project = request.form.get("project")
         get_mail = request.form.get("mail")
-        get_language = request.form.get("language")
+        get_languagelist = request.form.getlist("language")
         get_genre = request.form.get("genre")
-        get_posted = datetime.date
-        get_period = request.form.get("period")
+        get_posted = datetime.datetime.now().date()
+        get_period = str(request.form.get("period"))
         get_complete = request.form.get("complete")
         get_person = request.form.get("person")
         get_text = request.form.get("text")
@@ -85,7 +85,7 @@ def input():
             return redirect('input')
 
         # languageが入力されてるか確認
-        elif not get_language:
+        elif not get_languagelist:
             flash("プログラミング言語を入力してください")
             return redirect('input')
 
@@ -109,12 +109,25 @@ def input():
             flash("募集する人のレベルを入力してください")
             return redirect('input')
 
-        g.db.execute("INSERT INTO entries (title, mail_address, time, level, genre, day_posted, day_end, body) values (?, ?, ?, ?, ?, ?, ?, ?)", (get_project, get_mail, get_complete, get_person, get_genre, get_posted, get_period, get_text))
+        db.execute("INSERT INTO entries (title, mail_address, time, level, genre, day_posted, day_end, body) values (?, ?, ?, ?, ?, ?, ?, ?)", get_project, get_mail, get_complete, get_person, get_genre, get_posted, get_period, get_text)
         # 工夫しがいがありそう
-        get_entryid = g.db.execute("SELECT entry_id FROM entries WHERE title = ? AND mail_address = ? AND time = ? AND level = ? AND genre = ? AND day_posted = ? AND day_end = ? AND body = ?", (get_project, get_mail, get_complete, get_person, get_genre, get_posted, get_period, get_text))
-        g.db.execute("INSERT INTO language_to_entry (language_id, entry_id) values(?, ?)", (get_language, get_entryid))
+        get_entryid = db.execute("SELECT entry_id FROM entries WHERE title = ? AND mail_address = ? AND time = ? AND level = ? AND genre = ? AND day_posted = ? AND day_end = ? AND body = ?", get_project, get_mail, get_complete, get_person, get_genre, get_posted, get_period, get_text)
 
-        return render_template("index.html")
+        for i in get_languagelist:
+            get_language = int(i)
+            db.execute("INSERT INTO language_to_entry (language_id, entry_id) values(?, ?)", get_language, get_entryid)
+
+
+        rows = db.execute("""
+            SELECT entries.*, languages.name
+            FROM entries
+            LEFT JOIN language_to_entry
+            ON entries.entry_id = language_to_entry.entry_id
+            LEFT JOIN languages
+            ON languages.language_id = language_to_entry.language_id;
+        """)
+
+        return render_template('index.html', entries=rows)
 
     else:
         return render_template("input.html")
@@ -148,7 +161,7 @@ def register():
             return redirect("register")
 
         # Query database for username
-        rows = g.db.execute("SELECT * FROM users WHERE username = ?", get_username)
+        rows = db.execute("SELECT * FROM users WHERE username = ?", get_username)
 
         # ユーザーネームが一つしかないか確認する
         if len(rows) == 1:
@@ -162,7 +175,7 @@ def register():
             hash_password = generate_password_hash(get_password)
 
         # 新規登録処理
-        user_id = g.db.execute("INSERT INTO users(username, hash) values(?, ?)", get_username, hash_password)
+        user_id = db.execute("INSERT INTO users(username, hash) values(?, ?)", get_username, hash_password)
 
         # ログイン状態にする
         session["user_id"] = user_id
