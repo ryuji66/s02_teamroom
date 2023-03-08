@@ -28,7 +28,7 @@
         <div class="box">
             <div class="box-header">
                 <h2>{{ entry.title }}</h2>
-                {% for language in entry_languages %}
+                {% for language in entry.languages %}
                 <button class="tag_languages">{{ language.name }}</button>
                 {% endfor %}
                 <button class="tag_genres">{{ entry.genre }}</button>

@@ -62,7 +62,7 @@ def index():
 
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
     entries = db.execute("""
-        SELECT entries.*
+        SELECT entries.*, languages.name
         FROM entries
         LEFT JOIN language_to_entry
         ON entries.entry_id = language_to_entry.entry_id
@@ -79,6 +79,7 @@ def index():
         LEFT JOIN entries
         ON language_to_entry.entry_id = entries.entry_id
     """)
+    print(entry_languages)
 
     return render_template('index.html', genres=genres, languages=languages, entries=entries) #, entry_languages=entry_languages
 
