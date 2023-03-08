@@ -1,4 +1,4 @@
-from flask import redirect, session, flash
+from flask import render_template, session, flash
 from functools import wraps
 
 
@@ -12,6 +12,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if session.get("user_id") is None:
-            return redirect("/login")
+            flash("会員登録を行わないと使用できない機能です")
+            return render_template("login.html")
         return f(*args, **kwargs)
     return decorated_function
