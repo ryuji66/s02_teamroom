@@ -8,7 +8,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import datetime
 import time
 # import math
-# from helpers import apology, login_required
+from helpers import login_required
 # import sqlite3
 # from flask import current_app, g
 
