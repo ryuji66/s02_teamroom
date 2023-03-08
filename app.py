@@ -47,6 +47,13 @@ def index():
     # その他を削除する
     languages.pop()
 
+    checking = db.execute("SELECT entry_id, day_end FROM entries")
+    get_posted = str(datetime.datetime.now().date())
+    for i,j in enumerate(checking):
+        if checking[i]["day_end"] == get_posted:
+            db.execute("UPDATE entries SET is_active = 0 WHERE entry_id = ?", checking[i]["entry_id"])
+            print("a")
+
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
     rows = db.execute("""
         SELECT entries.*, languages.name
