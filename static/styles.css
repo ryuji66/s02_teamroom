@@ -12,6 +12,9 @@ body {
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-between;
+    justify-content: flex-start;
+    gap: 20px;
+    gap: 20px;
   }
 
 .box {
@@ -21,6 +24,8 @@ body {
   margin-bottom: 20px;
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
 }
 
 .box-header {
@@ -31,8 +36,17 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  flex-grow: 0;
 }
 
+.box-header h2 {
+  margin: 0;
+  color: white;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
 
 h1 {
   color: white;
@@ -80,4 +94,27 @@ nav .navbar-brand{
 
 nav .navbar-nav .nav-item .nav-link{
   color: white
+}
+
+.tag_languages, .tag_genres {
+  margin-left: 5px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 3px;
+  background-color: #666666;
+  color: white;
+  font-size: 12px;
+  padding: 3px 5px;
+}
+
+.box-content {
+  text-align: left;
+  font-size: 16px;
+  padding: 15px;
+  color: white;
+  flex-grow: 1;
+}
+
+.box-content p:first-child {
+  margin-top: 0;
 }

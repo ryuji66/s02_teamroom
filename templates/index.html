@@ -27,11 +27,12 @@
    {% for entry in entries %}
         <div class="box">
             <div class="box-header">
-                <h2>{{ entry.title }}</h2>
+                <h2>{{ entry.title }}<br>
                 {% for language in entry.languages %}
                 <button class="tag_languages">{{ language.name }}</button>
                 {% endfor %}
                 <button class="tag_genres">{{ entry.genre }}</button>
+                </h2>
             </div>
             <div class="box-content">
                 <p>連絡先 : <a href="mailto:{{ entry.mail_address }}">{{ entry.mail_address }}</a></p>
