@@ -62,12 +62,14 @@ def index():
 
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
     entries = db.execute("""
-        SELECT entries.*, languages.name
+        SELECT entries.*, languages.name, users.username
         FROM entries
         LEFT JOIN language_to_entry
         ON entries.entry_id = language_to_entry.entry_id
         LEFT JOIN languages
         ON languages.language_id = language_to_entry.language_id
+        LEFT JOIN users
+        ON users.user_id = entries.user_id
         WHERE is_active = 1;
     """)
 
