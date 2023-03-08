@@ -77,7 +77,7 @@ def index():
         LEFT JOIN language_to_entry
         ON languages.language_id = language_to_entry.language_id
         LEFT JOIN entries
-        ON language
+        ON language_to_entry.entry_id = entries.entry_id
     """)
 
     return render_template('index.html', genres=genres, languages=languages, entries=entries, entry_languages=entry_languages)
