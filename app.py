@@ -80,7 +80,7 @@ def index():
         ON language_to_entry.entry_id = entries.entry_id
     """)
 
-    return render_template('index.html', genres=genres, languages=languages, entries=entries, entry_languages=entry_languages)
+    return render_template('index.html', genres=genres, languages=languages, entries=entries) #, entry_languages=entry_languages
 
 
 @app.route("/input", methods=["GET", "POST"])
