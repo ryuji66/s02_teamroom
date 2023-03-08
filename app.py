@@ -239,6 +239,7 @@ def logout():
 
 
 @app.route("/mypage", methods=["GET", "POST"])
+@login_required
 def mypage():
     user_id = session.get('user_id', None)
 
