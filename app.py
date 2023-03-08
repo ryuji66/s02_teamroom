@@ -72,11 +72,12 @@ def index():
     """)
 
     entry_languages = db.execute("""
-        SELECT languages.*
+        SELECT languages.name
         FROM languages
         LEFT JOIN language_to_entry
         ON languages.language_id = language_to_entry.language_id
-        LEFT JOIN
+        LEFT JOIN entries
+        ON language
     """)
 
     return render_template('index.html', genres=genres, languages=languages, entries=entries, entry_languages=entry_languages)
