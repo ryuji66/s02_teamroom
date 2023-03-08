@@ -138,7 +138,7 @@ def input():
             flash("テキストを何か入力してください")
             return redirect('input')
 
-        db.execute("INSERT INTO entries (title, mail_address, time, level, genre, day_posted, day_end, body) values (?, ?, ?, ?, ?, ?, ?, ?)", get_project, get_mail, get_complete, get_person, get_genre, get_posted, get_period, get_text)
+        db.execute("INSERT INTO entries (title, mail_address, time, level, genre, day_posted, day_end, body, user_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", get_project, get_mail, get_complete, get_person, get_genre, get_posted, get_period, get_text, session["user_id"])
         # 工夫しがいがありそう
         get_entryid = db.execute("SELECT entry_id FROM entries WHERE title = ? AND mail_address = ? AND time = ? AND level = ? AND genre = ? AND day_posted = ? AND day_end = ? AND body = ?", get_project, get_mail, get_complete, get_person, get_genre, get_posted, get_period, get_text)
 
