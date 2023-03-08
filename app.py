@@ -98,6 +98,7 @@ def input():
         get_complete = request.form.get("complete")
         get_person = request.form.get("person")
         get_text = request.form.get("text")
+        print(session["user_id"])
 
         # projectが入力されてるか確認
         if not get_project:
@@ -147,7 +148,7 @@ def input():
             get_language = int(i)
             db.execute("INSERT INTO language_to_entry (language_id, entry_id) values(?, ?)", get_language, get_entryid[0]["entry_id"])
 
-        return redirect('/index')
+        return redirect('/')
 
     else:
         return render_template("input.html")
@@ -200,7 +201,7 @@ def register():
         # ログイン状態にする
         session["user_id"] = user_id
 
-        return redirect("register")
+        return redirect("/")
 
     else:
         return render_template("register.html")
@@ -214,13 +215,25 @@ def login():
     session.clear()
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
+
+        # Ensure username was submitted
+        if not request.form.get("username"):
+            flash("ユーザーネームを入力してください")
+            return redirect('login')
+
+        # Ensure password was submitted
+        elif not request.form.get("password"):
+            flash("パスワードを入力してください")
+            return redirect('login')
+
         #*Loginを実現している
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-            return apology("invalid username and/or password", 403)
+            flash("正しいユーザーネームもしくはパスワードを入力してください")
+            return redirect("/login")
         # Remember which user has logged in
-        session["user_id"] = rows[0]["id"]
+        session["user_id"] = rows[0]["user_id"]
         # Redirect user to home page
         return redirect("/")
 
