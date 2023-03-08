@@ -50,7 +50,7 @@ def index():
 
     checking = db.execute("SELECT entry_id, day_end FROM entries")
     get_today = str(datetime.datetime.now().date())
-    
+
     for i,j in enumerate(checking):
         # noneの場合は本来ないがテストデータがnoneになってしまっているため導入
         if checking[i]["day_end"] != None:
@@ -61,8 +61,8 @@ def index():
                 db.execute("UPDATE entries SET is_active = 0 WHERE entry_id = ?", checking[i]["entry_id"])
 
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
-    rows = db.execute("""
-        SELECT entries.*, languages.name
+    entries = db.execute("""
+        SELECT entries.*
         FROM entries
         LEFT JOIN language_to_entry
         ON entries.entry_id = language_to_entry.entry_id
@@ -71,7 +71,7 @@ def index():
         WHERE is_active = 1;
     """)
 
-    return render_template('index.html', genres=genres, languages=languages, entries=rows)
+    return render_template('index.html', genres=genres, languages=languages, entries=entries)
 
 
 @app.route("/input", methods=["GET", "POST"])
