@@ -53,7 +53,7 @@ def index():
     for i,j in enumerate(checking):
         formatted_date1 = time.strptime(checking[i]["day_end"], "%Y-%m-%d")
         formatted_date2 = time.strptime(get_posted, "%Y-%m-%d")
-        if checking[i]["day_end"] == get_posted:
+        if formatted_date1 < formatted_date2:
             db.execute("UPDATE entries SET is_active = 0 WHERE entry_id = ?", checking[i]["entry_id"])
             print("a")
 
