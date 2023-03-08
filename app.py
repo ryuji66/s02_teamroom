@@ -71,7 +71,9 @@ def index():
         WHERE is_active = 1;
     """)
 
-    return render_template('index.html', genres=genres, languages=languages, entries=entries)
+    entry_languages = db.execute()
+
+    return render_template('index.html', genres=genres, languages=languages, entries=entries, entry_languages=entry_languages)
 
 
 @app.route("/input", methods=["GET", "POST"])
