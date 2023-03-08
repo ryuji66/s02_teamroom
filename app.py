@@ -147,18 +147,7 @@ def input():
             get_language = int(i)
             db.execute("INSERT INTO language_to_entry (language_id, entry_id) values(?, ?)", get_language, get_entryid[0]["entry_id"])
 
-
-        rows = db.execute("""
-            SELECT entries.*, languages.name
-            FROM entries
-            LEFT JOIN language_to_entry
-            ON entries.entry_id = language_to_entry.entry_id
-            LEFT JOIN languages
-            ON languages.language_id = language_to_entry.language_id
-            WHERE is_active = 1;
-        """)
-
-        return render_template('index.html', entries=rows)
+        return redirect('/index')
 
     else:
         return render_template("input.html")
