@@ -98,6 +98,7 @@ def input():
         get_complete = request.form.get("complete")
         get_person = request.form.get("person")
         get_text = request.form.get("text")
+        print(session["user_id"])
 
         # projectが入力されてるか確認
         if not get_project:
