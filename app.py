@@ -214,6 +214,17 @@ def login():
     session.clear()
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
+
+        # Ensure username was submitted
+        if not request.form.get("username"):
+            flash("ユーザーネームを入力してください")
+            return redirect('login')
+
+        # Ensure password was submitted
+        elif not request.form.get("password"):
+            flash("パスワードを入力してください")
+            return redirect('login')
+
         #*Loginを実現している
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
         # Ensure username exists and password is correct
