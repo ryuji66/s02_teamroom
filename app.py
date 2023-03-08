@@ -232,7 +232,7 @@ def login():
             flash("正しいユーザーネームもしくはパスワードを入力してください")
             return redirect("/login")
         # Remember which user has logged in
-        session["user_id"] = rows[0]["id"]
+        session["user_id"] = rows[0]["user_id"]
         # Redirect user to home page
         return redirect("/")
 
