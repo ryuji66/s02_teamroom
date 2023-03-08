@@ -71,7 +71,13 @@ def index():
         WHERE is_active = 1;
     """)
 
-    entry_languages = db.execute()
+    entry_languages = db.execute("""
+        SELECT languages.*
+        FROM languages
+        LEFT JOIN language_to_entry
+        ON languages.language_id = language_to_entry.language_id
+        LEFT JOIN
+    """)
 
     return render_template('index.html', genres=genres, languages=languages, entries=entries, entry_languages=entry_languages)
 
