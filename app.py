@@ -148,7 +148,7 @@ def input():
             get_language = int(i)
             db.execute("INSERT INTO language_to_entry (language_id, entry_id) values(?, ?)", get_language, get_entryid[0]["entry_id"])
 
-        return redirect('/index')
+        return redirect('/')
 
     else:
         return render_template("input.html")
