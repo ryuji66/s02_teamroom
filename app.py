@@ -50,13 +50,15 @@ def index():
 
     checking = db.execute("SELECT entry_id, day_end FROM entries")
     get_today = str(datetime.datetime.now().date())
+    
     for i,j in enumerate(checking):
-        print(str(checking[i]["day_end"]))
-        # formatted_date1 = time.strptime(str(checking[i]["day_end"]), "%Y-%m-%d")
-        # formatted_date2 = time.strptime(get_today, "%Y-%m-%d")
-        # if formatted_date1 < formatted_date2:
-        #     db.execute("UPDATE entries SET is_active = 0 WHERE entry_id = ?", checking[i]["entry_id"])
-        #     print("a")
+        # noneの場合は本来ないがテストデータがnoneになってしまっているため導入
+        if checking[i]["day_end"] != None:
+            # 今日と締切日を比較し締切日を過ぎていればis_activeを0にする
+            formatted_date1 = time.strptime(str(checking[i]["day_end"]), "%Y-%m-%d")
+            formatted_date2 = time.strptime(get_today, "%Y-%m-%d")
+            if formatted_date1 < formatted_date2:
+                db.execute("UPDATE entries SET is_active = 0 WHERE entry_id = ?", checking[i]["entry_id"])
 
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
     rows = db.execute("""
