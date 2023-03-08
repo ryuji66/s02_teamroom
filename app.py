@@ -6,6 +6,7 @@ from flask_session import Session
 # from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 import datetime
+import time
 # import math
 # from helpers import apology, login_required
 # import sqlite3
@@ -50,6 +51,8 @@ def index():
     checking = db.execute("SELECT entry_id, day_end FROM entries")
     get_posted = str(datetime.datetime.now().date())
     for i,j in enumerate(checking):
+        formatted_date1 = time.strptime(checking[i]["day_end"], "%Y-%m-%d")
+        formatted_date2 = time.strptime(get_posted, "%Y-%m-%d")
         if checking[i]["day_end"] == get_posted:
             db.execute("UPDATE entries SET is_active = 0 WHERE entry_id = ?", checking[i]["entry_id"])
             print("a")
