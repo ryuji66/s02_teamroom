@@ -85,6 +85,7 @@ def index():
 
 
 @app.route("/input", methods=["GET", "POST"])
+@login_required
 def input():
     if request.method == "POST":
 
