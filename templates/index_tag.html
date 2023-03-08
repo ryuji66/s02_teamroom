@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    <!-- InputかIndexを書く -->
+    <meta charset="UTF-8">
+    <title>Flexbox Example</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='button.css') }}">
+{% endblock %}
+
+{% block main %}
+<h2>投稿一覧</h2>
+<div class="tag_list">
+    <!-- タグボタンを表示させるためのコード -->
+    <!-- <form action="/index_tag" method="post"> -->
+        <!-- <div class="box-container_tag"> -->
+            {% for i in genres %}
+            <button name="button" type="submit" class="tag_genres" onclick="location.href='{{ url_for('index_tag', tag=i.name) }}'">{{ i.name }}</button>
+            {% endfor %}
+        {% for i in languages %}
+            <button name="button" type="submit" class="tag_languages" value="{{ i['name']}}">{{ i["name"] }}</button>
+        {% endfor %}
+        <!-- </div> -->
+    <!-- </form> -->
+</div>
+<div class="box-container">
+   {% for entry in entries %}
+        <div class="box">
+            <div class="box-header">
+                <h2>{{ entry.title }}</h2>
+                {% for language in entry.languages %}
+                <button class="tag_languages">{{ language.name }}</button>
+                {% endfor %}
+                <button class="tag_genres">{{ entry.genre }}</button>
+            </div>
+            <div class="box-content">
+                <p>連絡先 : <a href="mailto:{{ entry.mail_address }}">{{ entry.mail_address }}</a></p>
+                <p>開発予定期間 : {{ entry.time }}</p>
+                <p>募集レベル : {{ entry.level }}</p>
+                <p>投稿日 : {{ entry.day_posted }}</p>
+                <p>募集締切 : {{ entry.day_end }}</p>
+                <p>_______________________________</p>
+                <p>{{ entry.body }}</p>
+            </div>
+        </div>
+   {% endfor %}
+</div>
+{% endblock %}

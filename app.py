@@ -252,11 +252,9 @@ def mypage():
 
 
 
-@app.route("/index_tag", methods=["GET", "POST"])
-def index_tag():
-    print("request.form.get(tag)")
-    print(request.form.get('tag_genres'))
-
+@app.route("/index_tag/<string:tag>")
+def index_tag(tag):
+    print(tag)
     # タグボタンの表示名を表示させるためにデータを取ってきてる
     genres = db.execute("SELECT * FROM genres")
     # その他を削除する
@@ -278,3 +276,4 @@ def index_tag():
     """)
 
     return render_template('index_tag.html', genres=genres, languages=languages, entries=rows)
+    # return render_template('index.html')
