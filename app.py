@@ -201,7 +201,7 @@ def register():
         # ログイン状態にする
         session["user_id"] = user_id
 
-        return redirect("register")
+        return redirect("/")
 
     else:
         return render_template("register.html")
