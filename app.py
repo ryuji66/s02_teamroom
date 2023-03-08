@@ -54,7 +54,8 @@ def index():
         LEFT JOIN language_to_entry
         ON entries.entry_id = language_to_entry.entry_id
         LEFT JOIN languages
-        ON languages.language_id = language_to_entry.language_id;
+        ON languages.language_id = language_to_entry.language_id
+        WHERE is_active = 1;
     """)
 
     return render_template('index.html', genres=genres, languages=languages, entries=rows)
@@ -129,7 +130,8 @@ def input():
             LEFT JOIN language_to_entry
             ON entries.entry_id = language_to_entry.entry_id
             LEFT JOIN languages
-            ON languages.language_id = language_to_entry.language_id;
+            ON languages.language_id = language_to_entry.language_id
+            WHERE is_active = 1;
         """)
 
         return render_template('index.html', entries=rows)
@@ -241,7 +243,7 @@ def mypage():
 def index_tag():
     print("request.form.get(tag)")
     print(request.form.get('tag_genres'))
-    
+
     # タグボタンの表示名を表示させるためにデータを取ってきてる
     genres = db.execute("SELECT * FROM genres")
     # その他を削除する
