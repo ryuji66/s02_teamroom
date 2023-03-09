@@ -52,11 +52,6 @@ h1 {
   color: white;
 }
 
-.box-header h2 {
-  margin: 0;
-  color: white;
-}
-
 .box-content {
   text-align: left;
   font-size: 16px;
@@ -64,41 +59,19 @@ h1 {
   color: white;
 }
 
-.mb-3 {
+.mb-3, .form-label, .languageinput, .checklist, h2, nav {
   color: white;
 }
 
-.form-label {
-  color: white;
-}
-
-.languageinput {
-  color: white;
-}
-
-.checklist {
-  color: white;
-}
-
-h2 {
-  color: white;
-}
-
-nav{
-  background-color: #222222;
-}
-
-nav .navbar-brand{
-  color: white;
-}
-
-nav .navbar-nav .nav-item .nav-link{
+nav .navbar-nav .nav-item .nav-link .navbar-brand{
   color: white
 }
 
 .tag_languages, .tag_genres {
   margin-left: 5px;
   margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   border: none;
   border-radius: 3px;
   background-color: #666666;
