@@ -62,7 +62,7 @@ def index():
 
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
     entries = db.execute("""
-        SELECT entries.*, languages.name, users.username
+        SELECT entries.*, GROUP_CONCAT(languages.name) as language_name, users.username
         FROM entries
         LEFT JOIN language_to_entry
         ON entries.entry_id = language_to_entry.entry_id
@@ -70,18 +70,11 @@ def index():
         ON languages.language_id = language_to_entry.language_id
         LEFT JOIN users
         ON users.user_id = entries.user_id
-        WHERE is_active = 1;
+        WHERE is_active = 1
+        GROUP BY entries.entry_id;
     """)
 
-    entry_languages = db.execute("""
-        SELECT languages.name
-        FROM languages
-        LEFT JOIN language_to_entry
-        ON languages.language_id = language_to_entry.language_id
-        LEFT JOIN entries
-        ON language_to_entry.entry_id = entries.entry_id
-    """)
-    print(entry_languages)
+    #print(entry_languages)
 
     return render_template('index.html', genres=genres, languages=languages, entries=entries) #, entry_languages=entry_languages
 

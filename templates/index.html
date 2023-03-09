@@ -29,9 +29,10 @@
         <div class="box">
             <div class="box-header">
                 <h2>{{ entry.title }}<br>
-
-                <button class="tag_languages">{{ entry.name }}</button>
-
+                <!--複数言語が,で区切られているので、カンマ部分でbuttonを分割-->
+                {% for language in entry.language_name.split(',') %}
+                    <button class="tag_languages">{{ language }}</button>
+                {% endfor %}
                 <button class="tag_genres">{{ entry.genre }}</button>
                 </h2>
             </div>
