@@ -36,6 +36,30 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar">
+                    <!--ポップアップ部分開始-->
+                    <div class="text-center col-xs-12">
+                        <img src="./static/images/info.png" alt="ポップアップを開く" data-bs-toggle="modal" data-bs-target="#test-modal">
+                    </div>
+                    <div id="test-modal" class="modal fade" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">使い方</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!--モーダル内-->
+                                    <li>チームで開発をする仲間を募集したいエンジニア向けの匿名掲示板です</li><br>
+                                    <li>会員登録後、ログインをすると投稿ができるようになります</li><br>
+                                    <li>会員登録をしなくても、投稿一覧のメールアドレスから投稿主に連絡を取り開発に参加することができます</li><br>
+                                </div>
+                                <!--<div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">閉じる</button>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <!--ポップアップ部分終了-->
                     {% if session["user_id"] %}
                         <ul class="navbar-nav me-auto mt-2">
                             <li class="nav-item"><a class="nav-link" href="/input">投稿する</a></li>
