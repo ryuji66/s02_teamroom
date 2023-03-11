@@ -1,30 +1,56 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    My page
-
+    <!-- InputかIndexを書く -->
+    <meta charset="UTF-8">
+    <title>My Page</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='button.css') }}">
 {% endblock %}
 
 {% block main %}
 <!-- ナビゲーションバーの下に追加したいものはここから下に書いてください -->
 <h1>MY PAGE</h1>
 <!--自分の投稿boxを表示-->
-{% for entry in entries %}
-<div class="box">
-    <div class="box-header">
-        <h2>{{ entry.title }}</h2>
-        {% for lang in entry.languages %}
-            <button class="tag">{{ lang.name }}</button>
-        {% endfor %}
+<div class="box-container">
+    {% for entry in entries %}
+    <div class="box">
+        <div class="box-header">
+            <h2>{{ entry.title }}<br>
+            <!--複数言語が,で区切られているので、カンマ部分でbuttonを分割-->
+            {% for language in entry.language_name.split(',') %}
+                <button class="tag_languages">{{ language }}</button>
+            {% endfor %}
+            <br>
+            <button class="tag_genres">{{ entry.genre }}</button>
+            </h2>
+        </div>
+        <div class="box-content">
+            <p>{{ entry.mail_address }}</p>
+            <p>{{ entry.time }}</p>
+            <p>{{ entry.level }}</p>
+            <p>{{ entry.day_posted }}</p>
+            <p>{{ entry.day_end }}</p>
+            <p>{{ entry.body }}</p>
+        </div>
+        <div class="box-footer">
+            <h2>
+                <!--複数言語が,で区切られているので、カンマ部分でbuttonを分割-->
+                <form action="/mypage" method="post">
+                    <button class="button_delete" onclick="result()" value="{{ entry.entry_id }}" name="deleteid">削除する</button>
+                </form>
+                <br>
+                <button class="button_get" onclick="location.href='{{ url_for('output') }}'">投稿を見てもらう</button>
+            </h2>
+        </div>
     </div>
-    <div class="box-content">
-        <p>{{ entry.mail_address }}</p>
-        <p>{{ entry.time }}</p>
-        <p>{{ entry.level }}</p>
-        <p>{{ entry.day_posted }}</p>
-        <p>{{ entry.day_end }}</p>
-        <p>{{ entry.body }}</p>
-    </div>
+    {% endfor %}
+    <script>
+        function result(){
+            let result = confirm('削除しますか？');
+
+            return result;
+        }
+    </script>
 </div>
-{% endfor %}
 {% endblock %}
