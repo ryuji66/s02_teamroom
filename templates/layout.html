@@ -22,7 +22,7 @@
 
         <link href="/static/styles.css" rel="stylesheet">
 
-        <title>Bulletin board for recruiting team development members: {% block title %}{% endblock %}</title>
+        <title>チーム開発掲示板 {% block title %}{% endblock %}</title>
     </head>
 
     <body>
@@ -62,6 +62,7 @@
                     <!--ポップアップ部分終了-->
                         <ul class="navbar-nav me-auto mt-2">
                             <li class="nav-item"><a class="nav-link" href="/input">投稿する</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/watch">制作を見る</a></li>
                         </ul>
                         {% if session["user_id"] %}
                         <ul class="navbar-nav ms-auto mt-2">
