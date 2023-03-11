@@ -423,8 +423,9 @@ def index_tag(tag):
         LEFT JOIN users
         ON users.user_id = entries.user_id
         WHERE is_active = 1
+        AND genre = ?
         GROUP BY entries.entry_id;
-    """)
+    """, tag)
 
     return render_template('index_tag.html', genres=genres, languages=languages, entries=entries)
     # return render_template('index.html')
