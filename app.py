@@ -413,14 +413,18 @@ def index_tag(tag):
     languages.pop()
 
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
-    rows = db.execute("""
-        SELECT entries.*, languages.name
+    entries = db.execute("""
+        SELECT entries.*, GROUP_CONCAT(languages.name) as language_name, users.username
         FROM entries
         LEFT JOIN language_to_entry
         ON entries.entry_id = language_to_entry.entry_id
         LEFT JOIN languages
-        ON languages.language_id = language_to_entry.language_id;
+        ON languages.language_id = language_to_entry.language_id
+        LEFT JOIN users
+        ON users.user_id = entries.user_id
+        WHERE is_active = 1
+        GROUP BY entries.entry_id;
     """)
 
-    return render_template('index_tag.html', genres=genres, languages=languages, entries=rows)
+    return render_template('index_tag.html', genres=genres, languages=languages, entries=entries)
     # return render_template('index.html')
