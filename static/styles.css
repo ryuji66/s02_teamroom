@@ -56,6 +56,27 @@ body {
   font-size: 18px;
   }
 
+.box-footer {
+  background-color: #000080;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-grow: 0;
+  }
+
+.box-footer h2 {
+  margin: 0;
+  color: white;
+  flex-grow: 1;
+  /*white-space: nowrap; テキストを折り返さないようにする*/
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 18px;
+    }
+
 h1, .mb-3, .form-label, .languageinput, .checklist, h2 {
   color: white;
 }
