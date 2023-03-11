@@ -1,0 +1,150 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Output
+{% endblock %}
+
+{% block main %}
+    <h2>成果物を投稿する</h2>
+    <form action="/output" method="post">
+        <body>
+            <div class="mb-3">
+                <label for="titleinput" class="form-label">募集プロジェクト名</label>
+                <input class="form-control" type="title" placeholder="Project name" name="project" autocomplete="off">
+            </div>
+
+            <div class="mb-3">
+                <label for="mailaddressinput" class="form-label">メールアドレス</label>
+                <input type="email" class="form-control" id="mailaddressinput" placeholder="name@example.com" name="mail" autocomplete="off">
+            </div>
+
+            <div>
+                <label for="languageinput" class="form-label">使用したい言語&nbsp;</label>
+                <input class="checklist" type="checkbox" value="" id="Check_all">
+                <label class="checklist" for="Check_all">全て選択 / 解除</label>
+
+                <p>
+                    <input class="checklist" type="checkbox" value="2" id="Check1" name="language">
+                    <label class="checklist" for="Check1">Python&nbsp;</label>
+
+                    <input class="checklist" type="checkbox" value="4" id="Check2" name="language">
+                    <label class="checklist" for="Check2">Java&nbsp;</label>
+
+                    <input class="checklist" type="checkbox" value="1" id="Check3" name="language">
+                    <label class="checklist" for="Check3">Javascript&nbsp;</label>
+
+                    <input class="checklist" type="checkbox" value="7" id="Check4" name="language">
+                    <label class="checklist" for="Check4">C#&nbsp;</label>
+
+                    <input class="checklist" type="checkbox" value="10" id="Check5" name="language">
+                    <label class="checklist" for="Check5">C/C++&nbsp;</label>
+
+                    <input class="checklist" type="checkbox" value="5" id="Check6" name="language">
+                    <label class="checklist" for="Check6">PHP&nbsp;</label>
+
+                    <input class="checklist" type="checkbox" value="8" id="Check7" name="language">
+                    <label class="checklist" for="Check7">R&nbsp;</label>
+
+                    <input class="checklist" type="checkbox" value="14" id="Check8" name="language">
+                    <label class="checklist" for="Check8">Typescript&nbsp;</label>
+
+                    <input class="checklist" type="checkbox" value="6" id="Check9" name="language">
+                    <label class="checklist" for="Check9">Swift&nbsp;</label>
+
+                    <input class="checklist" type="checkbox" value="3" id="Check10" name="language">
+                    <label class="checklist" for="Check10">Go&nbsp;</label>
+
+                    <input class="checklist" type="checkbox" value="9" id="Check11" name="language">
+                    <label class="checklist" for="Check11">Ruby&nbsp;</label>
+
+                    <input class="checklist" type="checkbox" value="12" id="Check13" name="language">
+                    <label class="checklist" for="Check13">HTML&nbsp;</label>
+
+                    <input class="checklist" type="checkbox" value="13" id="Check14" name="language">
+                    <label class="checklist" for="Check14">CSS&nbsp;</label>
+
+                    <input class="checklist" type="checkbox" value="11" id="Check15" name="language">
+                    <label class="checklist" for="Check15">SQL&nbsp;</label>
+
+                    <input class="checklist" type="checkbox" value="15" id="Check16" name="language">
+                    <label class="checklist" for="Check16">その他&nbsp;</label>
+                </p>
+            </div>
+
+            <p></p>
+
+            <div class="mb-3">
+                <label for="genreinput" class="form-label">作りたいジャンル</label>
+                <select class="form-select mx-auto w-auto" aria-label="Default select example" name="genre">
+                    <option disabled selected>Open this select menu</option>
+                    <option value="webアプリ">webアプリ</option>
+                    <option value="ゲーム">ゲーム</option>
+                    <option value="iOSアプリ">iOSアプリ</option>
+                    <option value="androidアプリ">androidアプリ</option>
+                    <option value="データサイエンス">データサイエンス</option>
+                    <option value="その他">その他</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="periodinput" class="form-label">募集取りやめまでの期間</label>
+                <p>
+                    <input type="date" id="periodinput" name="period" class="form-control mx-auto w-auto">
+                </p>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="completeperiodinput" class="form-label">完成までの目安期間</label>
+                <select class="form-select mx-auto w-auto" aria-label="Default select example" name="complete">
+                    <option disabled selected>Open this select menu</option>
+                    <option value="1ヶ月以内">1ヶ月以内</option>
+                    <option value="1ヶ月~3ヶ月">1ヶ月~3ヶ月</option>
+                    <option value="3ヶ月以上">3ヶ月以上</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="wantpersoninput" class="form-label">募集する人のレベル</label>
+                <select class="form-select mx-auto w-auto" aria-label="Default select example" name="person">
+                    <option disabled selected>Open this select menu</option>
+                    <option value="初級">初級</option>
+                    <option value="中級">中級</option>
+                    <option value="上級">上級</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="commentinput" class="form-label">コメント</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="text" placeholder="何か入力してください"></textarea>
+            </div>
+
+            <button class="btn btn-primary" type="submit">Submit</button>
+
+            <script>
+                let checkbox_all = document.querySelector("#Check_all");
+
+                let checkbox_list = document.querySelectorAll(".checklist");
+
+                checkbox_all.addEventListener('change', change_all);
+
+                function change_all() {
+	                if (checkbox_all.checked) {
+		                for (let i in checkbox_list) {
+			                if (checkbox_list.hasOwnProperty(i)) {
+				                checkbox_list[i].checked = true;
+			                }
+		                }
+
+	                } else {
+		                for (let i in checkbox_list) {
+			                if (checkbox_list.hasOwnProperty(i)) {
+				                checkbox_list[i].checked = false;
+			                }
+		                }
+	                }
+                };
+            </script>
+        </body>
+    </form>
+{% endblock %}
