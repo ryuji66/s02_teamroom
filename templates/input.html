@@ -9,17 +9,17 @@
     <form action="/input" method="post">
         <body>
             <div class="mb-3">
-                <label for="titleinput" class="form-label">募集プロジェクト名</label>
-                <input class="form-control" type="title" placeholder="Project name" name="project" autocomplete="off">
+                <label for="title" class="form-label">募集プロジェクト名</label>
+                <input class="form-control" type="title" placeholder="入力してください" name="project" autocomplete="off">
             </div>
 
             <div class="mb-3">
-                <label for="mailaddressinput" class="form-label">メールアドレス</label>
-                <input type="email" class="form-control" id="mailaddressinput" placeholder="name@example.com" name="mail" autocomplete="off">
+                <label for="mail" class="form-label">メールアドレス</label>
+                <input type="email" class="form-control" placeholder="name@example.com" name="mail" autocomplete="off">
             </div>
 
             <div>
-                <label for="languageinput" class="form-label">使用したい言語&nbsp;</label>
+                <label for="language" class="form-label">使用したい言語&nbsp;</label>
                 <input class="checklist" type="checkbox" value="" id="Check_all">
                 <label class="checklist" for="Check_all">全て選択 / 解除</label>
 
@@ -57,24 +57,24 @@
                     <input class="checklist" type="checkbox" value="9" id="Check11" name="language">
                     <label class="checklist" for="Check11">Ruby&nbsp;</label>
 
-                    <input class="checklist" type="checkbox" value="12" id="Check13" name="language">
-                    <label class="checklist" for="Check13">HTML&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="12" id="Check12" name="language">
+                    <label class="checklist" for="Check12">HTML&nbsp;</label>
 
-                    <input class="checklist" type="checkbox" value="13" id="Check14" name="language">
-                    <label class="checklist" for="Check14">CSS&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="13" id="Check13" name="language">
+                    <label class="checklist" for="Check13">CSS&nbsp;</label>
 
-                    <input class="checklist" type="checkbox" value="11" id="Check15" name="language">
-                    <label class="checklist" for="Check15">SQL&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="11" id="Check14" name="language">
+                    <label class="checklist" for="Check14">SQL&nbsp;</label>
 
-                    <input class="checklist" type="checkbox" value="15" id="Check16" name="language">
-                    <label class="checklist" for="Check16">その他&nbsp;</label>
+                    <input class="checklist" type="checkbox" value="15" id="Check15" name="language">
+                    <label class="checklist" for="Check15">その他&nbsp;</label>
                 </p>
             </div>
 
             <p></p>
 
             <div class="mb-3">
-                <label for="genreinput" class="form-label">作りたいジャンル</label>
+                <label for="genre" class="form-label">作りたいジャンル</label>
                 <select class="form-select mx-auto w-auto" aria-label="Default select example" name="genre">
                     <option disabled selected>Open this select menu</option>
                     <option value="webアプリ">webアプリ</option>
@@ -87,15 +87,15 @@
             </div>
 
             <div class="mb-3">
-                <label for="periodinput" class="form-label">募集取りやめまでの期間</label>
+                <label for="period" class="form-label">募集取りやめまでの期間</label>
                 <p>
-                    <input type="date" id="periodinput" name="period" class="form-control mx-auto w-auto">
+                    <input type="date" name="period" class="form-control mx-auto w-auto">
                 </p>
             </div>
 
 
             <div class="mb-3">
-                <label for="completeperiodinput" class="form-label">完成までの目安期間</label>
+                <label for="complete" class="form-label">完成までの目安期間</label>
                 <select class="form-select mx-auto w-auto" aria-label="Default select example" name="complete">
                     <option disabled selected>Open this select menu</option>
                     <option value="1ヶ月以内">1ヶ月以内</option>
@@ -105,7 +105,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="wantpersoninput" class="form-label">募集する人のレベル</label>
+                <label for="person" class="form-label">募集する人のレベル</label>
                 <select class="form-select mx-auto w-auto" aria-label="Default select example" name="person">
                     <option disabled selected>Open this select menu</option>
                     <option value="初級">初級</option>
@@ -115,7 +115,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="commentinput" class="form-label">コメント</label>
+                <label for="text" class="form-label">コメント</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="text" placeholder="何か入力してください"></textarea>
             </div>
 
