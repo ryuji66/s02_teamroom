@@ -131,12 +131,12 @@ def input():
 
         # textが入力されてるか確認
         elif not get_text:
-            flash("テキストを何か入力してください")
+            flash("コメントを何か入力してください")
             return redirect('input')
 
         db.execute("INSERT INTO entries (title, mail_address, time, level, genre, day_posted, day_end, body, user_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", get_project, get_mail, get_complete, get_person, get_genre, get_posted, get_period, get_text, session["user_id"])
         # 工夫しがいがありそう
-        get_entryid = db.execute("SELECT entry_id FROM entries WHERE title = ? AND mail_address = ? AND time = ? AND level = ? AND genre = ? AND day_posted = ? AND day_end = ? AND body = ?", get_project, get_mail, get_complete, get_person, get_genre, get_posted, get_period, get_text)
+        get_entryid = db.execute("SELECT entry_id FROM entries WHERE title = ? AND mail_address = ? AND time = ? AND level = ? AND genre = ? AND day_posted = ? AND day_end = ? AND body = ? AND use_id = ?", get_project, get_mail, get_complete, get_person, get_genre, get_posted, get_period, get_text, session["user_id"])
 
         for i in get_languagelist:
             get_language = int(i)
@@ -258,15 +258,19 @@ def mypage():
         ON languages.language_id = language_to_entry.language_id
         LEFT JOIN users
         ON users.user_id = entries.user_id
-        WHERE is_active = 1
-        AND entries.user_id = ?
+        WHERE entries.user_id = ?
         GROUP BY entries.entry_id;
     """, session["user_id"])
 
 
     if request.method == "POST":
-        db.execute("DELETE FROM language_to_entry WHERE entry_id = ?", request.form.get("deleteid"))
-        db.execute("DELETE FROM entries WHERE entry_id = ?", request.form.get("deleteid"))
+        get_deleteid = request.form.get("deleteid")
+        get_stopid = request.form.get("stopid")
+        if get_deleteid:
+            db.execute("DELETE FROM language_to_entry WHERE entry_id = ?", get_deleteid)
+            db.execute("DELETE FROM entries WHERE entry_id = ?", get_deleteid)
+        elif get_stopid:
+            db.execute("UPDATE entries SET is_active = 0 WHERE entry_id = ?", get_stopid)
 
         entries = db.execute("""
             SELECT entries.*, GROUP_CONCAT(languages.name) as language_name, users.username
@@ -277,8 +281,7 @@ def mypage():
             ON languages.language_id = language_to_entry.language_id
             LEFT JOIN users
             ON users.user_id = entries.user_id
-            WHERE is_active = 1
-            AND entries.user_id = ?
+            WHERE entries.user_id = ?
             GROUP BY entries.entry_id;
         """, session["user_id"])
 
@@ -292,23 +295,40 @@ def mypage():
 def output():
     if request.method == "POST":
 
-        get_project = request.form.get("project")
-        get_mail = request.form.get("mail")
+        get_entryid = request.form.get("entryid")
+        get_github = request.form.get("github")
+        get_youtube = request.form.get("youtube")
+        get_howmany =  request.form.get("howmany")
+        get_maillist = request.form.getlist("mail")
         get_languagelist = request.form.getlist("language")
         get_genre = request.form.get("genre")
-        get_posted = datetime.datetime.now().date()
-        get_period = str(request.form.get("period"))
-        get_complete = request.form.get("complete")
-        get_person = request.form.get("person")
+        get_overview = request.form.get("overview")
+        get_background = request.form.get("background")
+        get_technique = request.form.get("technique")
         get_text = request.form.get("text")
 
         # projectが入力されてるか確認
-        if not get_project:
+        if not get_entryid:
             flash("プロジェクト名を入力してください")
             return redirect('output')
 
+        # githubが入力されてるか確認
+        elif not get_github:
+            flash("GitHubリポジトリのURLを入力してください")
+            return redirect('output')
+
+        # youtubeが入力されてるか確認
+        elif not get_youtube:
+            flash("YouTubeのURL（埋め込み用）を入力してください")
+            return redirect('output')
+
+        # howmanyが入力されてるか確認
+        elif not get_howmany:
+            flash("開発の背景を入力してください")
+            return redirect('output')
+
         # mailが入力されてるか確認
-        elif not get_mail:
+        elif not get_maillist:
             flash("メールアドレスを入力してください")
             return redirect('output')
 
@@ -322,38 +342,58 @@ def output():
             flash("ジャンルを入力してください")
             return redirect('output')
 
-        # periodが入力されてるか確認
-        elif not get_period:
-            flash("募集期間を入力してください")
+        # overviewが入力されてるか確認
+        elif not get_overview:
+            flash("プロジェクトの概要を入力してください")
             return redirect('output')
 
-        # completeが入力されてるか確認
-        elif not get_complete:
-            flash("制作期間を入力してください")
+        # backgroundが入力されてるか確認
+        elif not get_background:
+            flash("開発の背景を入力してください")
             return redirect('output')
 
-        # personが入力されてるか確認
-        elif not get_person:
-            flash("募集する人のレベルを入力してください")
+        # techniqueが入力されてるか確認
+        elif not get_technique:
+            flash("技術的な工夫を入力してください")
             return redirect('output')
 
         # textが入力されてるか確認
         elif not get_text:
-            flash("テキストを何か入力してください")
+            flash("コメントを何か入力してください")
             return redirect('output')
 
-        db.execute("INSERT INTO entries (title, mail_address, time, level, genre, day_posted, day_end, body, user_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", get_project, get_mail, get_complete, get_person, get_genre, get_posted, get_period, get_text, session["user_id"])
+        db.execute("UPDATE entries SET is_final = 0 WHERE entry_id = ?", get_entryid)
+
+        db.execute("INSERT INTO entries (title, mail_address, time, level, genre, day_posted, day_end, body, user_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", get_entryid, get_github, get_youtube, get_howmany, get_genre, get_overview, get_background, get_technique, get_text, session["user_id"])
         # 工夫しがいがありそう
-        get_entryid = db.execute("SELECT entry_id FROM entries WHERE title = ? AND mail_address = ? AND time = ? AND level = ? AND genre = ? AND day_posted = ? AND day_end = ? AND body = ?", get_project, get_mail, get_complete, get_person, get_genre, get_posted, get_period, get_text)
+        get_watchid = db.execute("SELECT entry_id FROM entries WHERE title = ? AND mail_address = ? AND time = ? AND level = ? AND genre = ? AND day_posted = ? AND day_end = ? AND body = ?", get_entryid, get_github, get_youtube, get_howmany, get_genre, get_overview, get_background, get_technique, get_text)
 
         for i in get_languagelist:
             get_language = int(i)
-            db.execute("INSERT INTO language_to_entry (language_id, entry_id) values(?, ?)", get_language, get_entryid[0]["entry_id"])
+            db.execute("INSERT INTO language_to_entry (language_id, entry_id) values(?, ?)", get_language, get_watchid[0]["entry_id"])
+
+        for j in get_maillist:
+            get_mail = j
+            db.execute("INSERT INTO language_to_entry (language_id, entry_id) values(?, ?)", get_mail, get_watchid[0]["entry_id"])
+
 
         return render_template('watch.html')
 
     else:
-        return render_template("output.html")
+        entries = db.execute("""
+            SELECT entries.*, GROUP_CONCAT(languages.name) as language_name, users.username
+            FROM entries
+            LEFT JOIN language_to_entry
+            ON entries.entry_id = language_to_entry.entry_id
+            LEFT JOIN languages
+            ON languages.language_id = language_to_entry.language_id
+            LEFT JOIN users
+            ON users.user_id = entries.user_id
+            WHERE is_active = 0
+            AND entries.user_id = ?
+            GROUP BY entries.entry_id;
+        """, session["user_id"])
+        return render_template("output.html", entries = entries)
 
 @app.route("/watch")
 def watch():
