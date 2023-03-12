@@ -19,7 +19,7 @@
         {% endfor %}
         <br>
         {% for i in languages %}
-            <button name="button" type="submit" class="tag_languages" value="{{ i['name']}}">{{ i["name"] }}</button>
+            <button name="button" type="submit" class="tag_languages" onclick="location.href='{{ url_for('index_language', tag=i.name) }}'">{{ i["name"] }}</button>
         {% endfor %}
         <!-- </div> -->
     <!-- </form> -->
