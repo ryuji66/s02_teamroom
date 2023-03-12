@@ -37,20 +37,41 @@
             <h2>
                 <!--複数言語が,で区切られているので、カンマ部分でbuttonを分割-->
                 <form action="/mypage" method="post">
-                    <button class="button_delete" onclick="result()" value="{{ entry.entry_id }}" name="deleteid">削除する</button>
+                    <button class="button_delete" value="{{ entry.entry_id }}" name="deleteid" id="deleteid">削除する</button>
+                    {% if entry.is_active == 1 %}
+                    <br>
+                    <br>
+                    <button class="button_stop" value="{{ entry.entry_id }}" name="stopid" id="stopid">募集を取りやめる</button>
+                    {% endif %}
                 </form>
-                <br>
-                <button class="button_get" onclick="location.href='{{ url_for('output') }}'">投稿を見てもらう</button>
             </h2>
         </div>
     </div>
     {% endfor %}
     <script>
-        function result(){
-            let result = confirm('削除しますか？');
+        let deleteid = document.querySelector('#deleteid');
+        deleteid.addEventListener('click', function() {
+            var result = window.confirm('募集投稿を削除しますか？');
 
-            return result;
-        }
+            if(result){
+                return result;
+            }
+            else{
+                return event.preventDefault()
+            }
+        })
+
+        let stopid = document.querySelector('#stopid');
+        stopid.addEventListener('click', function() {
+            var result = window.confirm('募集投稿を停止しますか？');
+
+            if(result){
+                return result;
+            }
+            else{
+                return event.preventDefault()
+            }
+        })
     </script>
 </div>
 {% endblock %}
