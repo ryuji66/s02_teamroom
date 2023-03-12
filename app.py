@@ -468,4 +468,33 @@ def index_tag(tag):
     """, tag)
 
     return render_template('index_tag.html', genres=genres, languages=languages, entries=entries)
-    # return render_template('index.html')
+
+@app.route("/index_language/<string:tag>")
+def index_language(tag):
+
+    # タグボタンの表示名を表示させるためにデータを取ってきてる
+    genres = db.execute("SELECT * FROM genres")
+    # その他を削除する
+    genres.pop()
+
+    # 上と同じ
+    languages = db.execute("SELECT * FROM languages")
+    # その他を削除する
+    languages.pop()
+
+    # entriesテーブルと中間テーブルを結合して必要な情報を取得
+    entries = db.execute("""
+        SELECT entries.*, GROUP_CONCAT(languages.name) as language_name, users.username
+        FROM entries
+        LEFT JOIN language_to_entry
+        ON entries.entry_id = language_to_entry.entry_id
+        LEFT JOIN languages
+        ON languages.language_id = language_to_entry.language_id
+        LEFT JOIN users
+        ON users.user_id = entries.user_id
+        WHERE is_active = 1
+        AND languages.name = ?
+        GROUP BY entries.entry_id;
+    """, tag)
+
+    return render_template('index_tag.html', genres=genres, languages=languages, entries=entries)
