@@ -136,7 +136,7 @@ def input():
 
         db.execute("INSERT INTO entries (title, mail_address, time, level, genre, day_posted, day_end, body, user_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", get_project, get_mail, get_complete, get_person, get_genre, get_posted, get_period, get_text, session["user_id"])
         # 工夫しがいがありそう
-        get_entryid = db.execute("SELECT entry_id FROM entries WHERE title = ? AND mail_address = ? AND time = ? AND level = ? AND genre = ? AND day_posted = ? AND day_end = ? AND body = ? AND use_id = ?", get_project, get_mail, get_complete, get_person, get_genre, get_posted, get_period, get_text, session["user_id"])
+        get_entryid = db.execute("SELECT entry_id FROM entries WHERE title = ? AND mail_address = ? AND time = ? AND level = ? AND genre = ? AND day_posted = ? AND day_end = ? AND body = ? AND user_id = ?", get_project, get_mail, get_complete, get_person, get_genre, get_posted, get_period, get_text, session["user_id"])
 
         for i in get_languagelist:
             get_language = int(i)
@@ -295,11 +295,11 @@ def mypage():
 def output():
     if request.method == "POST":
 
-        get_entryid = request.form.get("entryid")
+        get_project = request.form.get("project")
         get_github = request.form.get("github")
         get_youtube = request.form.get("youtube")
         get_howmany =  request.form.get("howmany")
-        get_maillist = request.form.getlist("mail")
+        get_mail = request.form.get("mail")
         get_languagelist = request.form.getlist("language")
         get_genre = request.form.get("genre")
         get_overview = request.form.get("overview")
@@ -308,7 +308,7 @@ def output():
         get_text = request.form.get("text")
 
         # projectが入力されてるか確認
-        if not get_entryid:
+        if not get_project:
             flash("プロジェクト名を入力してください")
             return redirect('output')
 
@@ -328,7 +328,7 @@ def output():
             return redirect('output')
 
         # mailが入力されてるか確認
-        elif not get_maillist:
+        elif not get_mail:
             flash("メールアドレスを入力してください")
             return redirect('output')
 
@@ -362,38 +362,20 @@ def output():
             flash("コメントを何か入力してください")
             return redirect('output')
 
-        db.execute("UPDATE entries SET is_final = 0 WHERE entry_id = ?", get_entryid)
-
-        db.execute("INSERT INTO entries (title, mail_address, time, level, genre, day_posted, day_end, body, user_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", get_entryid, get_github, get_youtube, get_howmany, get_genre, get_overview, get_background, get_technique, get_text, session["user_id"])
+        db.execute("INSERT INTO works (title, github, youtube, howmany, mail_address, genre, overview, background, technique, body, user_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", get_project, get_github, get_youtube, get_howmany, get_mail, get_genre, get_overview, get_background, get_technique, get_text, session["user_id"])
         # 工夫しがいがありそう
-        get_watchid = db.execute("SELECT entry_id FROM entries WHERE title = ? AND mail_address = ? AND time = ? AND level = ? AND genre = ? AND day_posted = ? AND day_end = ? AND body = ?", get_entryid, get_github, get_youtube, get_howmany, get_genre, get_overview, get_background, get_technique, get_text)
+        get_workid = db.execute("SELECT work_id FROM works WHERE title = ? AND github = ? AND youtube = ? AND howmany = ? AND mail_address = ? AND genre = ? AND overview = ? AND background = ? AND technique = ? AND body = ? AND user_id = ?", get_project, get_github, get_youtube, get_howmany, get_mail, get_genre, get_overview, get_background, get_technique, get_text, session["user_id"])
 
         for i in get_languagelist:
             get_language = int(i)
-            db.execute("INSERT INTO language_to_entry (language_id, entry_id) values(?, ?)", get_language, get_watchid[0]["entry_id"])
-
-        for j in get_maillist:
-            get_mail = j
-            db.execute("INSERT INTO language_to_entry (language_id, entry_id) values(?, ?)", get_mail, get_watchid[0]["entry_id"])
+            db.execute("INSERT INTO language_to_work (language_id, work_id) values(?, ?)", get_language, get_workid[0]["work_id"])
 
 
         return render_template('watch.html')
 
     else:
-        entries = db.execute("""
-            SELECT entries.*, GROUP_CONCAT(languages.name) as language_name, users.username
-            FROM entries
-            LEFT JOIN language_to_entry
-            ON entries.entry_id = language_to_entry.entry_id
-            LEFT JOIN languages
-            ON languages.language_id = language_to_entry.language_id
-            LEFT JOIN users
-            ON users.user_id = entries.user_id
-            WHERE is_active = 0
-            AND entries.user_id = ?
-            GROUP BY entries.entry_id;
-        """, session["user_id"])
-        return render_template("output.html", entries = entries)
+        return render_template("output.html")
+
 
 @app.route("/watch")
 def watch():
@@ -407,35 +389,21 @@ def watch():
     # その他を削除する
     languages.pop()
 
-    checking = db.execute("SELECT entry_id, day_end FROM entries")
-    get_today = str(datetime.datetime.now().date())
 
-    for i,j in enumerate(checking):
-        # noneの場合は本来ないがテストデータがnoneになってしまっているため導入
-        if checking[i]["day_end"] != None:
-            # 今日と締切日を比較し締切日を過ぎていればis_activeを0にする
-            formatted_date1 = time.strptime(str(checking[i]["day_end"]), "%Y-%m-%d")
-            formatted_date2 = time.strptime(get_today, "%Y-%m-%d")
-            if formatted_date1 < formatted_date2:
-                db.execute("UPDATE entries SET is_active = 0 WHERE entry_id = ?", checking[i]["entry_id"])
-
-    # entriesテーブルと中間テーブルを結合して必要な情報を取得
-    entries = db.execute("""
-        SELECT entries.*, GROUP_CONCAT(languages.name) as language_name, users.username
-        FROM entries
-        LEFT JOIN language_to_entry
-        ON entries.entry_id = language_to_entry.entry_id
+    # worksテーブルと中間テーブルを結合して必要な情報を取得
+    works = db.execute("""
+        SELECT works.*, GROUP_CONCAT(languages.name) as language_name, users.username
+        FROM works
+        LEFT JOIN language_to_work
+        ON works.work_id = language_to_work.work_id
         LEFT JOIN languages
-        ON languages.language_id = language_to_entry.language_id
+        ON languages.language_id = language_to_work.language_id
         LEFT JOIN users
-        ON users.user_id = entries.user_id
-        WHERE is_active = 0
-        GROUP BY entries.entry_id;
+        ON users.user_id = works.user_id
+        GROUP BY works.work_id;
     """)
 
-    #print(entry_languages)
-
-    return render_template('watch.html', genres=genres, languages=languages, entries=entries)
+    return render_template('watch.html', genres=genres, languages=languages, works=works)
 
 
 
