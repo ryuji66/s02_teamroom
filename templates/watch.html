@@ -25,27 +25,22 @@
     <!-- </form> -->
 </div>
 <div class="box-container">
-   {% for entry in entries %}
+   {% for work in works %}
         <div class="box">
             <div class="box-header">
-                <h2>{{ entry.title }}<br>
+                <h2>{{ work.title }}<br>
                 <!--複数言語が,で区切られているので、カンマ部分でbuttonを分割-->
-                {% for language in entry.language_name.split(',') %}
+                {% for language in work.language_name.split(',') %}
                     <button class="tag_languages">{{ language }}</button>
                 {% endfor %}
                 <br>
-                <button class="tag_genres">{{ entry.genre }}</button>
+                <button class="tag_genres">{{ work.genre }}</button>
                 </h2>
             </div>
             <div class="box-content">
-                <p>ユーザーネーム: {{ entry.username }}</p>
-                <p>連絡先 : <a href="mailto:{{ entry.mail_address }}">{{ entry.mail_address }}</a></p>
-                <p>開発予定期間 : {{ entry.time }}</p>
-                <p>募集レベル : {{ entry.level }}</p>
-                <p>投稿日 : {{ entry.day_posted }}</p>
-                <p>募集締切 : {{ entry.day_end }}</p>
-                <p>________________________________________</p>
-                <p>{{ entry.body }}</p>
+                <p>ユーザーネーム: {{ work.username }}</p>
+                <p>連絡先 : <a href="mailto:{{ work.mail_address }}">{{ work.mail_address }}</a></p>
+                <p>開発人数 : {{ work.howmany }}</p>
             </div>
         </div>
    {% endfor %}
