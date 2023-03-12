@@ -28,8 +28,8 @@
   cursor: pointer;
 }
 
-.button_get {
-  background-color: #996600;
+.button_stop {
+  background-color: #0000ff;
   color: white;
   border: none;
   border-radius: 4px;
