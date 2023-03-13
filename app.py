@@ -1,7 +1,7 @@
 # import os
 
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session, Markup
 from flask_session import Session
 # from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -321,6 +321,13 @@ def watch():
 
     return render_template('watch.html', genres=genres, languages=languages, works=works)
 
+@app.route("/watch_get/<string:get>")
+def watch_get(get):
+    works = db.execute("SELECT * FROM works WHERE work_id = ?", get)
+    link = Markup(works[0]["youtube"])
+    return render_template("watch_get.html", works = works, link = link)
+
+
 @app.route("/output", methods=["GET", "POST"])
 @login_required
 def output():
@@ -333,6 +340,8 @@ def output():
         get_mail = request.form.get("mail")
         get_languagelist = request.form.getlist("language")
         get_genre = request.form.get("genre")
+        get_complete = request.form.get("complete")
+        get_person = request.form.get("person")
         get_overview = request.form.get("overview")
         get_background = request.form.get("background")
         get_technique = request.form.get("technique")
@@ -374,6 +383,16 @@ def output():
             return redirect('output')
 
         # overviewが入力されてるか確認
+        elif not get_complete:
+            flash("完成までにかかった期間を入力してください")
+            return redirect('complete')
+
+        # backgroundが入力されてるか確認
+        elif not get_person:
+            flash("あなたのレベルを入力してください")
+            return redirect('output')
+
+        # overviewが入力されてるか確認
         elif not get_overview:
             flash("プロジェクトの概要を入力してください")
             return redirect('output')
@@ -393,9 +412,9 @@ def output():
             flash("コメントを何か入力してください")
             return redirect('output')
 
-        db.execute("INSERT INTO works (title, github, youtube, howmany, mail_address, genre, overview, background, technique, body, user_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", get_project, get_github, get_youtube, get_howmany, get_mail, get_genre, get_overview, get_background, get_technique, get_text, session["user_id"])
+        db.execute("INSERT INTO works (title, github, youtube, howmany, mail_address, time, level, genre, overview, background, technique, body, user_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", get_project, get_github, get_youtube, get_howmany, get_mail, get_complete, get_person, get_genre, get_overview, get_background, get_technique, get_text, session["user_id"])
         # 工夫しがいがありそう
-        get_workid = db.execute("SELECT work_id FROM works WHERE title = ? AND github = ? AND youtube = ? AND howmany = ? AND mail_address = ? AND genre = ? AND overview = ? AND background = ? AND technique = ? AND body = ? AND user_id = ?", get_project, get_github, get_youtube, get_howmany, get_mail, get_genre, get_overview, get_background, get_technique, get_text, session["user_id"])
+        get_workid = db.execute("SELECT work_id FROM works WHERE title = ? AND github = ? AND youtube = ? AND howmany = ? AND mail_address = ? AND time = ? AND level = ? AND genre = ? AND overview = ? AND background = ? AND technique = ? AND body = ? AND user_id = ?", get_project, get_github, get_youtube, get_howmany, get_mail, get_complete, get_person, get_genre, get_overview, get_background, get_technique, get_text, session["user_id"])
 
         for i in get_languagelist:
             get_language = int(i)
