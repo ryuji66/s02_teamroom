@@ -102,6 +102,21 @@
             </div>
 
             <div class="mb-3">
+                <label for="complete" class="form-label">完成までにかかった期間</label>
+                <input class="form-control mx-auto w-auto" name="complete" placeholder="入力してください" type="text" autocomplete="off">
+            </div>
+
+            <div class="mb-3">
+                <label for="person" class="form-label">投稿者のレベル</label>
+                <select class="form-select mx-auto w-auto" aria-label="Default select example" name="person">
+                    <option disabled selected>Open this select menu</option>
+                    <option value="初級">初級(目安：半年以下)</option>
+                    <option value="中級">中級(目安:半年〜1年)</option>
+                    <option value="上級">上級(目安:1年以上)</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
                 <label for="overview" class="form-label">プロジェクトの概要</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="overview" placeholder="何か入力してください"></textarea>
             </div>
