@@ -213,19 +213,19 @@ def login():
         # Ensure username was submitted
         if not request.form.get("username"):
             flash("ユーザーネームを入力してください")
-            return redirect('login')
+            return render_template('login.html')
 
         # Ensure password was submitted
         elif not request.form.get("password"):
             flash("パスワードを入力してください")
-            return redirect('login')
+            return render_template('login.html')
 
         #*Loginを実現している
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
             flash("正しいユーザーネームもしくはパスワードを入力してください")
-            return redirect("/login")
+            return render_template("login.html")
         # Remember which user has logged in
         session["user_id"] = rows[0]["user_id"]
         # Redirect user to home page
