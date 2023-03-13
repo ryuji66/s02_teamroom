@@ -58,7 +58,7 @@ def index():
             formatted_date1 = time.strptime(str(checking[i]["day_end"]), "%Y-%m-%d")
             formatted_date2 = time.strptime(get_today, "%Y-%m-%d")
             if formatted_date1 < formatted_date2:
-                db.execute("DELETE FROM entries WHERE entry_id = ?", checking[i]["entry_id"])
+                db.execute("UPDATE entries SET is_active = 0 WHERE entry_id = ?", checking[i]["entry_id"])
 
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
     entries = db.execute("""
@@ -70,6 +70,7 @@ def index():
         ON languages.language_id = language_to_entry.language_id
         LEFT JOIN users
         ON users.user_id = entries.user_id
+        WHERE is_active = 1
         GROUP BY entries.entry_id;
     """)
 
@@ -258,6 +259,7 @@ def mypage():
         LEFT JOIN users
         ON users.user_id = entries.user_id
         WHERE entries.user_id = ?
+        AND is_active = 1
         GROUP BY entries.entry_id;
     """, session["user_id"])
 
@@ -281,6 +283,7 @@ def mypage():
             LEFT JOIN users
             ON users.user_id = entries.user_id
             WHERE entries.user_id = ?
+            AND is_active = 1
             GROUP BY entries.entry_id;
         """, session["user_id"])
 
@@ -428,6 +431,7 @@ def index_tag(tag):
         ON languages.language_id = language_to_entry.language_id
         LEFT JOIN users
         ON users.user_id = entries.user_id
+        WHERE is_active = 1
         AND genre = ?
         GROUP BY entries.entry_id;
     """, tag)
@@ -457,6 +461,7 @@ def index_language(tag):
         ON languages.language_id = language_to_entry.language_id
         LEFT JOIN users
         ON users.user_id = entries.user_id
+        WHERE is_active = 1
         AND languages.name = ?
         GROUP BY entries.entry_id;
     """, tag)
