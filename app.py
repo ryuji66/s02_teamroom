@@ -58,7 +58,7 @@ def index():
             formatted_date1 = time.strptime(str(checking[i]["day_end"]), "%Y-%m-%d")
             formatted_date2 = time.strptime(get_today, "%Y-%m-%d")
             if formatted_date1 < formatted_date2:
-                db.execute("UPDATE entries SET is_active = 0 WHERE entry_id = ?", checking[i]["entry_id"])
+                db.execute("DELETE FROM entries WHERE entry_id = ?", checking[i]["entry_id"])
 
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
     entries = db.execute("""
@@ -70,7 +70,6 @@ def index():
         ON languages.language_id = language_to_entry.language_id
         LEFT JOIN users
         ON users.user_id = entries.user_id
-        WHERE is_active = 1
         GROUP BY entries.entry_id;
     """)
 
@@ -290,6 +289,35 @@ def mypage():
     else:
         return render_template("mypage.html", entries = entries)
 
+
+@app.route("/watch")
+def watch():
+    # タグボタンの表示名を表示させるためにデータを取ってきてる
+    genres = db.execute("SELECT * FROM genres")
+    # その他を削除する
+    genres.pop()
+
+    # 上と同じ
+    languages = db.execute("SELECT * FROM languages")
+    # その他を削除する
+    languages.pop()
+
+
+    # worksテーブルと中間テーブルを結合して必要な情報を取得
+    works = db.execute("""
+        SELECT works.*, GROUP_CONCAT(languages.name) as language_name, users.username
+        FROM works
+        LEFT JOIN language_to_work
+        ON works.work_id = language_to_work.work_id
+        LEFT JOIN languages
+        ON languages.language_id = language_to_work.language_id
+        LEFT JOIN users
+        ON users.user_id = works.user_id
+        GROUP BY works.work_id;
+    """)
+
+    return render_template('watch.html', genres=genres, languages=languages, works=works)
+
 @app.route("/output", methods=["GET", "POST"])
 @login_required
 def output():
@@ -310,7 +338,7 @@ def output():
         # projectが入力されてるか確認
         if not get_project:
             flash("プロジェクト名を入力してください")
-            return redirect('output')
+            return render_template('output.html')
 
         # githubが入力されてるか確認
         elif not get_github:
@@ -377,36 +405,6 @@ def output():
         return render_template("output.html")
 
 
-@app.route("/watch")
-def watch():
-    # タグボタンの表示名を表示させるためにデータを取ってきてる
-    genres = db.execute("SELECT * FROM genres")
-    # その他を削除する
-    genres.pop()
-
-    # 上と同じ
-    languages = db.execute("SELECT * FROM languages")
-    # その他を削除する
-    languages.pop()
-
-
-    # worksテーブルと中間テーブルを結合して必要な情報を取得
-    works = db.execute("""
-        SELECT works.*, GROUP_CONCAT(languages.name) as language_name, users.username
-        FROM works
-        LEFT JOIN language_to_work
-        ON works.work_id = language_to_work.work_id
-        LEFT JOIN languages
-        ON languages.language_id = language_to_work.language_id
-        LEFT JOIN users
-        ON users.user_id = works.user_id
-        GROUP BY works.work_id;
-    """)
-
-    return render_template('watch.html', genres=genres, languages=languages, works=works)
-
-
-
 @app.route("/index_tag/<string:tag>")
 def index_tag(tag):
 
@@ -430,7 +428,6 @@ def index_tag(tag):
         ON languages.language_id = language_to_entry.language_id
         LEFT JOIN users
         ON users.user_id = entries.user_id
-        WHERE is_active = 1
         AND genre = ?
         GROUP BY entries.entry_id;
     """, tag)
@@ -460,7 +457,6 @@ def index_language(tag):
         ON languages.language_id = language_to_entry.language_id
         LEFT JOIN users
         ON users.user_id = entries.user_id
-        WHERE is_active = 1
         AND languages.name = ?
         GROUP BY entries.entry_id;
     """, tag)
