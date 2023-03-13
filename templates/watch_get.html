@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Watch_get
+{% endblock %}
+
+{% block main %}
+{% for work in works %}
+    <h2>{{ work.title }}</h2>
+    <body>
+        <h2>
+            {{ link }}
+        </h2>
+        <h2>
+            {{ work.github }}
+        </h2>
+    </body>
+{% endfor %}
+{% endblock %}
