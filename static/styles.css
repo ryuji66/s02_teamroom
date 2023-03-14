@@ -25,8 +25,10 @@ body {
 .box {
   display: grid;
   background-color: #222222;
-  border-radius: 10px;
-  width: 300px;
+  border-radius: 14px;
+  width: 380px;
+  height: 450px;
+  /*border: 1px solid #ccc; boxの枠線をつけるかどうか*/
   margin-bottom: 16px;
   padding: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
@@ -36,13 +38,15 @@ body {
 }
 
 .box-header {
-  background-color: #333333;
-  border-radius: 8px;
-  padding: 20px;
+  background-color: #444444;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom: 0;
+  padding: 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
   flex-grow: 0;
 }
 
@@ -56,16 +60,40 @@ body {
   font-size: 18px;
   }
 
+.box-content {
+    text-align: left;
+    font-size: 12px;
+    padding: 10px;
+    color: white;
+    flex-grow: 1;
+    max-height: 400px; /* スクロールする高さを指定 */
+    overflow-y: scroll;
+    padding-right: 15px;
+  }
+
+.box-content p:first-child {
+    margin-top: 0;
+}
+
 .box-footer {
-  background-color: #000080;
-  border-radius: 8px;
+  background-color: #2F3136;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border-top: 0;
   padding: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  margin-top: 4px;
   flex-grow: 0;
-  }
+}
+
+
+.box-footer button {
+  flex: 1;
+  margin: 0;
+}
 
 .box-footer h2 {
   margin: 0;
@@ -75,7 +103,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 18px;
-    }
+}
 
 h1, .mb-3, .form-label, .languageinput, .checklist, h2 {
   color: white;
@@ -106,14 +134,26 @@ nav .navbar-nav .nav-item .nav-link{
   margin-bottom: 5px;
 }
 
-.box-content {
-  text-align: left;
-  font-size: 12px;
-  padding: 10px;
-  color: white;
-  flex-grow: 1;
+/* スクロールバーを細くする */
+::-webkit-scrollbar {
+  width: 5px;
 }
 
-.box-content p:first-child {
-  margin-top: 0;
+::-webkit-scrollbar-track {
+  background-color: #333333;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #444444;
+}
+
+/* スクロールバーのコーナーをカスタマイズする */
+::-webkit-scrollbar-corner {
+  background-color: #333333;
+}
+
+/* スクロールバーのホバーなしでも表示する */
+/* Chrome */
+::-webkit-scrollbar-thumb:vertical {
+  background-color: #666666;
 }
