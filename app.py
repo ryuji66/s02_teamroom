@@ -385,7 +385,7 @@ def output():
         # overviewが入力されてるか確認
         elif not get_complete:
             flash("完成までにかかった期間を入力してください")
-            return redirect('complete')
+            return redirect('output')
 
         # backgroundが入力されてるか確認
         elif not get_person:
@@ -421,7 +421,31 @@ def output():
             db.execute("INSERT INTO language_to_work (language_id, work_id) values(?, ?)", get_language, get_workid[0]["work_id"])
 
 
-        return render_template('watch.html')
+        # タグボタンの表示名を表示させるためにデータを取ってきてる
+        genres = db.execute("SELECT * FROM genres")
+        # その他を削除する
+        genres.pop()
+
+        # 上と同じ
+        languages = db.execute("SELECT * FROM languages")
+        # その他を削除する
+        languages.pop()
+
+
+        # worksテーブルと中間テーブルを結合して必要な情報を取得
+        works = db.execute("""
+            SELECT works.*, GROUP_CONCAT(languages.name) as language_name, users.username
+            FROM works
+            LEFT JOIN language_to_work
+            ON works.work_id = language_to_work.work_id
+            LEFT JOIN languages
+            ON languages.language_id = language_to_work.language_id
+            LEFT JOIN users
+            ON users.user_id = works.user_id
+            GROUP BY works.work_id;
+        """)
+
+        return render_template('watch.html', genres=genres, languages=languages, works=works)
 
     else:
         return render_template("output.html")
@@ -486,3 +510,61 @@ def index_language(tag):
     """, tag)
 
     return render_template('index_tag.html', genres=genres, languages=languages, entries=entries)
+
+@app.route("/watch_tag/<string:tag>")
+def watch_tag(tag):
+
+    # タグボタンの表示名を表示させるためにデータを取ってきてる
+    genres = db.execute("SELECT * FROM genres")
+    # その他を削除する
+    genres.pop()
+
+    # 上と同じ
+    languages = db.execute("SELECT * FROM languages")
+    # その他を削除する
+    languages.pop()
+
+    # entriesテーブルと中間テーブルを結合して必要な情報を取得
+    works = db.execute("""
+        SELECT works.*, GROUP_CONCAT(languages.name) as language_name, users.username
+        FROM works
+        LEFT JOIN language_to_work
+        ON works.work_id = language_to_work.work_id
+        LEFT JOIN languages
+        ON languages.language_id = language_to_work.language_id
+        LEFT JOIN users
+        ON users.user_id = works.user_id
+        WHERE genre = ?
+        GROUP BY works.work_id;
+    """, tag)
+
+    return render_template('watch_tag.html', genres=genres, languages=languages, works=works)
+
+@app.route("/watch_language/<string:tag>")
+def watch_language(tag):
+
+    # タグボタンの表示名を表示させるためにデータを取ってきてる
+    genres = db.execute("SELECT * FROM genres")
+    # その他を削除する
+    genres.pop()
+
+    # 上と同じ
+    languages = db.execute("SELECT * FROM languages")
+    # その他を削除する
+    languages.pop()
+
+    # entriesテーブルと中間テーブルを結合して必要な情報を取得
+    works = db.execute("""
+        SELECT works.*, GROUP_CONCAT(languages.name) as language_name, users.username
+        FROM works
+        LEFT JOIN language_to_work
+        ON works.work_id = language_to_work.work_id
+        LEFT JOIN languages
+        ON languages.language_id = language_to_work.language_id
+        LEFT JOIN users
+        ON users.user_id = works.user_id
+        WHERE languages.name = ?
+        GROUP BY works.work_id;
+    """, tag)
+
+    return render_template('watch_language.html', genres=genres, languages=languages, works=works)
