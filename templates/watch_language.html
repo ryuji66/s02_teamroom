@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    <!-- InputかIndexを書く -->
+    <meta charset="UTF-8">
+    <title>Flexbox Example</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='button.css') }}">
+{% endblock %}
+
+{% block main %}
+<h2>投稿一覧</h2>
+<div class="tag_list">
+    <!-- タグボタンを表示させるためのコード -->
+    <!-- <form action="/index_tag" method="post"> -->
+        <!-- <div class="box-container_tag"> -->
+        {% for i in genres %}
+            <button name="button" type="submit" class="tag_genres" onclick="location.href='{{ url_for('index_tag', tag=i.name) }}'">{{ i.name }}</button>
+        {% endfor %}
+        <br>
+        {% for i in languages %}
+            <button name="button" type="submit" class="tag_languages" value="{{ i['name']}}">{{ i["name"] }}</button>
+        {% endfor %}
+        <!-- </div> -->
+    <!-- </form> -->
+</div>
+<div class="box-container">
+    {% for work in works %}
+    <div class="box">
+        <div class="box-header">
+            <h2><a href="{{ url_for('watch_get', get=work.work_id) }}">{{ work.title }}</a><br>
+            <!--複数言語が,で区切られているので、カンマ部分でbuttonを分割-->
+            {% for language in work.language_name.split(',') %}
+                <button class="tag_languages">{{ language }}</button>
+            {% endfor %}
+            <br>
+            <button class="tag_genres">{{ work.genre }}</button>
+            </h2>
+        </div>
+        <div class="box-content">
+            <p>ユーザーネーム: {{ work.username }}</p>
+            <p>連絡先 : <a href="mailto:{{ work.mail_address }}">{{ work.mail_address }}</a></p>
+            <p>開発予定期間 : {{ work.time }}</p>
+            <p>スキルレベル : {{ work.level }}</p>
+            <p>開発人数 : {{ work.howmany }}</p>
+            <p>GitHubリポジトリ : <a href="{{ work.github }}" target="_blank" rel="noopener">クリックしてください</a></p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
