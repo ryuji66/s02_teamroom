@@ -38,13 +38,12 @@ def index():
     get_today = str(datetime.datetime.now().date())
 
     for i,j in enumerate(checking):
-        # noneの場合は本来ないがテストデータがnoneになってしまっているため導入
-        if checking[i]["day_end"] != None:
-            # 今日と締切日を比較し締切日を過ぎていればis_activeを0にする
-            formatted_date1 = time.strptime(str(checking[i]["day_end"]), "%Y-%m-%d")
-            formatted_date2 = time.strptime(get_today, "%Y-%m-%d")
-            if formatted_date1 < formatted_date2:
-                db.execute("UPDATE entries SET is_active = 0 WHERE entry_id = ?", checking[i]["entry_id"])
+        # 今日と締切日を比較し締切日を過ぎていればis_activeを0にする
+        formatted_date1 = time.strptime(str(checking[i]["day_end"]), "%Y-%m-%d")
+        formatted_date2 = time.strptime(get_today, "%Y-%m-%d")
+        if formatted_date1 < formatted_date2:
+            db.execute("DELETE FROM language_to_entry WHERE entry_id = ?", checking[i]["entry_id"])
+            db.execute("DELETE FROM entries WHERE entry_id = ?", checking[i]["entry_id"])
 
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
     entries = db.execute("""
@@ -56,13 +55,10 @@ def index():
         ON languages.language_id = language_to_entry.language_id
         LEFT JOIN users
         ON users.user_id = entries.user_id
-        WHERE is_active = 1
         GROUP BY entries.entry_id;
     """)
 
-    #print(entry_languages)
-
-    return render_template('index.html', genres=genres, languages=languages, entries=entries) #, entry_languages=entry_languages
+    return render_template('index.html', genres=genres, languages=languages, entries=entries)
 
 
 @app.route("/input", methods=["GET", "POST"])
@@ -245,19 +241,15 @@ def mypage():
         LEFT JOIN users
         ON users.user_id = entries.user_id
         WHERE entries.user_id = ?
-        AND is_active = 1
         GROUP BY entries.entry_id;
     """, session["user_id"])
 
 
     if request.method == "POST":
         get_deleteid = request.form.get("deleteid")
-        get_stopid = request.form.get("stopid")
         if get_deleteid:
             db.execute("DELETE FROM language_to_entry WHERE entry_id = ?", get_deleteid)
             db.execute("DELETE FROM entries WHERE entry_id = ?", get_deleteid)
-        elif get_stopid:
-            db.execute("UPDATE entries SET is_active = 0 WHERE entry_id = ?", get_stopid)
 
         entries = db.execute("""
             SELECT entries.*, GROUP_CONCAT(languages.name) as language_name, users.username
@@ -269,7 +261,6 @@ def mypage():
             LEFT JOIN users
             ON users.user_id = entries.user_id
             WHERE entries.user_id = ?
-            AND is_active = 1
             GROUP BY entries.entry_id;
         """, session["user_id"])
 
@@ -460,8 +451,7 @@ def index_tag(tag):
         ON languages.language_id = language_to_entry.language_id
         LEFT JOIN users
         ON users.user_id = entries.user_id
-        WHERE is_active = 1
-        AND genre = ?
+        WHERE genre = ?
         GROUP BY entries.entry_id;
     """, tag)
 
@@ -490,8 +480,7 @@ def index_language(tag):
         ON languages.language_id = language_to_entry.language_id
         LEFT JOIN users
         ON users.user_id = entries.user_id
-        WHERE is_active = 1
-        AND languages.name = ?
+        WHERE languages.name = ?
         GROUP BY entries.entry_id;
     """, tag)
 
