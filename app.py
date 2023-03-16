@@ -240,6 +240,28 @@ def mypage():
         GROUP BY entries.entry_id;
     """, session["user_id"])
 
+    works = db.execute("""
+        SELECT works.*, GROUP_CONCAT(languages.name) as language_name, users.username
+        FROM works
+        LEFT JOIN language_to_work
+        ON works.work_id = language_to_work.work_id
+        LEFT JOIN languages
+        ON languages.language_id = language_to_work.language_id
+        LEFT JOIN users
+        ON users.user_id = works.user_id
+        WHERE works.user_id = ?
+        GROUP BY works.work_id;
+    """, session["user_id"])
+
+    noinput = 0
+    nooutput = 0
+    if entries == []:
+        noinput = 1
+    if works == []:
+        nooutput = 1
+
+    usernames = db.execute("SELECT username FROM users WHERE user_id = ?", session["user_id"])
+    username = usernames[0]["username"]
 
     if request.method == "POST":
         get_deleteid = request.form.get("deleteid")
@@ -260,10 +282,10 @@ def mypage():
             GROUP BY entries.entry_id;
         """, session["user_id"])
 
-        return render_template("mypage.html", entries = entries)
+        return render_template("mypage.html", entries = entries, username = username, works = works, noinput = noinput, nooutput = nooutput)
 
     else:
-        return render_template("mypage.html", entries = entries)
+        return render_template("mypage.html", entries = entries, username = username, works = works, noinput = noinput, nooutput = nooutput)
 
 
 @app.route("/watch")
