@@ -19,6 +19,11 @@
             </div>
 
             <div class="mb-3">
+                <label for="devurl" class="form-label">デブロイしている場合のURL</label>
+                <input class="form-control" type="url" placeholder="入力してください" name="devurl" autocomplete="off">
+            </div>
+
+            <div class="mb-3">
                 <label for="youtube" class="form-label">説明動画（YouTube）の埋め込み用</label>
                 <!--モーダル開始-->
                 <div class="text-center col-xs-12">
@@ -128,12 +133,28 @@
             </div>
 
             <div class="mb-3">
+                <label for="grade" class="form-label">投稿者の年齢</label>
+                <select class="form-select mx-auto w-auto" aria-label="Default select example" name="grade">
+                    <option disabled selected>Open this select menu</option>
+                    <option value="大学生未満">大学生未満</option>
+                    <option value="大学1年生">大学1年生</option>
+                    <option value="大学2年生">大学2年生</option>
+                    <option value="大学3年生">大学3年生</option>
+                    <option value="大学4年生">大学4年生</option>
+                    <option value="修士1年生">修士1年生</option>
+                    <option value="修士2年生">修士2年生</option>
+                    <option value="社会人">社会人</option>
+                    <option value="その他">その他</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
                 <label for="person" class="form-label">投稿者のレベル</label>
                 <select class="form-select mx-auto w-auto" aria-label="Default select example" name="person">
                     <option disabled selected>Open this select menu</option>
-                    <option value="初級">初級(目安：半年以下)</option>
-                    <option value="中級">中級(目安:半年〜1年)</option>
-                    <option value="上級">上級(目安:1年以上)</option>
+                    <option value="初級(目安：半年以下)">初級(目安：半年以下)</option>
+                    <option value="中級(目安:半年〜1年)">中級(目安:半年〜1年)</option>
+                    <option value="上級(目安:1年以上)">上級(目安:1年以上)</option>
                 </select>
             </div>
 
