@@ -36,7 +36,6 @@ body {
   flex-direction: column;
   grid-auto-flow: row;
 }
-
 .box-header {
   background-color: #444444;
   border-top-left-radius: 12px;
@@ -49,10 +48,47 @@ body {
   margin-bottom: 4px;
   flex-grow: 0;
 }
-
 .box-header h2 {
   margin: 0;
   color: white;
+  flex-grow: 1;
+  /*white-space: nowrap; テキストを折り返さないようにする*/
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 18px;
+  }
+
+/*works用　box_works, box-header_works*/
+.box_works {
+  display: grid;
+  background-color: #525252;
+  border-radius: 14px;
+  width: 380px;
+  height: 450px;
+  /*border: 1px solid #ccc; boxの枠線をつけるかどうか*/
+  margin-bottom: 16px;
+  padding: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  grid-auto-flow: row;
+}
+
+.box-header_works {
+  background-color: #a6a6a6;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom: 0;
+  padding: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  flex-grow: 0;
+}
+
+.box-header_works h2 {
+  margin: 0;
   flex-grow: 1;
   /*white-space: nowrap; テキストを折り返さないようにする*/
   overflow: hidden;

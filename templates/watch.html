@@ -19,8 +19,8 @@
 
 <div class="box-container">
    {% for work in works %}
-        <div class="box">
-            <div class="box-header">
+        <div class="box_works">
+            <div class="box-header_works">
                 <h2><a href="{{ url_for('watch_get', get=work.work_id) }}">{{ work.title }}</a><br>
                 <!--複数言語が,で区切られているので、カンマ部分でbuttonを分割-->
                 {% for language in work.language_name.split(',') %}
