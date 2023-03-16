@@ -10,8 +10,11 @@
 
 {% block main %}
 <!-- ナビゲーションバーの下に追加したいものはここから下に書いてください -->
-<h1>MY PAGE</h1>
+<h1>{{ username }}のMY PAGE</h1>
+<div class="design"><h2>メンバー募集投稿</h2></div>
+<br>
 <!--自分の投稿boxを表示-->
+{% if noinput == 0 %}
 <div class="box-container">
     {% for entry in entries %}
     <div class="box">
@@ -31,6 +34,7 @@
             <p>募集レベル : {{ entry.level }}</p>
             <p>投稿日 : {{ entry.day_posted }}</p>
             <p>募集締切 : {{ entry.day_end }}</p>
+            <p>▽コメント</p>
             <p>{{ entry.body }}</p>
         </div>
         <div class="box-footer">
@@ -43,30 +47,65 @@
         </div>
     </div>
     {% endfor %}
-    <script>
-        let deleteid = document.querySelector('#deleteid');
-        deleteid.addEventListener('click', function() {
-            var result = window.confirm('募集投稿を削除しますか？');
-
-            if(result){
-                return result;
-            }
-            else{
-                return event.preventDefault()
-            }
-        })
-
-        let stopid = document.querySelector('#stopid');
-        stopid.addEventListener('click', function() {
-            var result = window.confirm('募集投稿を停止しますか？');
-
-            if(result){
-                return result;
-            }
-            else{
-                return event.preventDefault()
-            }
-        })
-    </script>
 </div>
+{% else %}
+<h2>メンバー募集の投稿をしていません</h2>
+<br>
+{% endif %}
+<br>
+<div class="design"><h2>制作物投稿</h2></div>
+<br>
+{% if nooutput == 0 %}
+<div class="box-container">
+    {% for work in works %}
+         <div class="box">
+            <div class="box-header">
+                <h2><a href="{{ url_for('watch_get', get=work.work_id) }}">{{ work.title }}</a><br>
+                <!--複数言語が,で区切られているので、カンマ部分でbuttonを分割-->
+                {% for language in work.language_name.split(',') %}
+                    <button class="tag_languages">{{ language }}</button>
+                {% endfor %}
+                <br>
+                <button class="tag_genres">{{ work.genre }}</button>
+                </h2>
+            </div>
+             <div class="box-content">
+                 <p>連絡先 :{{ work.mail_address }}</p>
+                 <p>開発予定期間 : {{ work.time }}</p>
+                 <p>スキルレベル : {{ work.level }}</p>
+                 <p>開発人数 : {{ work.howmany }}</p>
+                 <p>GitHubリポジトリ : <a href="{{ work.github }}" target="_blank" rel="noopener">{{ work.github }}</a></p>
+             </div>
+         </div>
+    {% endfor %}
+ </div>
+{% else %}
+<h2>制作物の投稿をしていません</h2>
+<br>
+{% endif %}
+ <script>
+    let deleteid = document.querySelector('#deleteid');
+    deleteid.addEventListener('click', function() {
+        var result = window.confirm('募集投稿を削除しますか？');
+
+        if(result){
+            return result;
+        }
+        else{
+            return event.preventDefault()
+        }
+    })
+
+    let stopid = document.querySelector('#stopid');
+    stopid.addEventListener('click', function() {
+        var result = window.confirm('募集投稿を停止しますか？');
+
+        if(result){
+            return result;
+        }
+        else{
+            return event.preventDefault()
+        }
+    })
+</script>
 {% endblock %}
