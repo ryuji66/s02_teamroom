@@ -69,6 +69,7 @@ body {
     max-height: 400px; /* スクロールする高さを指定 */
     overflow-y: scroll;
     padding-right: 15px;
+    overflow-wrap: break-word;
 }
 
 .box-content p:first-child {
