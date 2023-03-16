@@ -25,29 +25,29 @@
     <!-- </form> -->
 </div>
 <div class="box-container">
-   {% for entry in entries %}
-        <div class="box">
-            <div class="box-header">
-                <h2>{{ entry.title }}<br>
-                <!--複数言語が,で区切られているので、カンマ部分でbuttonを分割-->
-                {% for language in entry.language_name.split(',') %}
-                    <button class="tag_languages">{{ language }}</button>
-                {% endfor %}
-                <br>
-                <button class="tag_genres">{{ entry.genre }}</button>
-                </h2>
-            </div>
-            <div class="box-content">
-                <p>ユーザーネーム: {{ entry.username }}</p>
-                <p>連絡先 : <a href="mailto:{{ entry.mail_address }}">{{ entry.mail_address }}</a></p>
-                <p>開発予定期間 : {{ entry.time }}</p>
-                <p>募集レベル : {{ entry.level }}</p>
-                <p>投稿日 : {{ entry.day_posted }}</p>
-                <p>募集締切 : {{ entry.day_end }}</p>
-                <p>________________________________________</p>
-                <p>{{ entry.body }}</p>
-            </div>
+    {% for entry in entries %}
+    <div class="box">
+        <div class="box-header">
+            <h2>{{ entry.title }}<br>
+            <!--複数言語が,で区切られているので、カンマ部分でbuttonを分割-->
+            {% for language in entry.language_name.split(',') %}
+                <button class="tag_languages">{{ language }}</button>
+            {% endfor %}
+            <br>
+            <button class="tag_genres">{{ entry.genre }}</button>
+            </h2>
         </div>
-   {% endfor %}
+        <div class="box-content">
+            <p>ユーザーネーム: {{ entry.username }}</p>
+            <p>連絡先 : <a href="mailto:{{ entry.mail_address }}">{{ entry.mail_address }}</a></p>
+            <p>開発予定期間 : {{ entry.time }}</p>
+            <p>募集レベル : {{ entry.level }}</p>
+            <p>投稿日 : {{ entry.day_posted }}</p>
+            <p>募集締切 : {{ entry.day_end }}</p>
+            <p>▽コメント</p>
+            <p>{{ entry.body }}</p>
+        </div>
+    </div>
+{% endfor %}
 </div>
 {% endblock %}
