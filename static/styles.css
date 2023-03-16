@@ -105,7 +105,7 @@ body {
   font-size: 18px;
 }
 
-h1, .mb-3, .form-label, .languageinput, .checklist, h2 {
+h1, .mb-3, .form-label, .languageinput, .checklist, h2, h3 {
   color: white;
 }
 
