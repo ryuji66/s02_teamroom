@@ -180,4 +180,50 @@ h2:before {
 }
 h2:after {
   right: 7px;
+
+/* これより下 button.cssにあったやつ */
+
+.tag_languages {
+  background-color: #008cba;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.tag_genres {
+  background-color: #d35f39;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.button_delete {
+  background-color: #b84141;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.button_stop {
+  background-color: #3452a3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.button_delete:hover,
+.button_stop:hover {
+  background-color: #777777;
 }
