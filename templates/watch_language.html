@@ -43,7 +43,7 @@
             <p>開発予定期間 : {{ work.time }}</p>
             <p>スキルレベル : {{ work.level }}</p>
             <p>開発人数 : {{ work.howmany }}</p>
-            <p>GitHubリポジトリ : <a href="{{ work.github }}" target="_blank" rel="noopener">クリックしてください</a></p>
+            <p>GitHubリポジトリ : <a href="{{ work.github }}" target="_blank" rel="noopener">{{ work.github }}</a></p>
         </div>
     </div>
     {% endfor %}
