@@ -625,8 +625,8 @@ def index_search():
         GROUP BY entries.entry_id;
     """, f"%{keyword}%", f"%{keyword}%")
 
-   # if entries == []:
-   #     flash("検索結果が見つかりません")
-   #     return redirect("/")
+    if entries == []:
+        flash("検索結果が見つかりません")
+        return redirect("/")
 
     return render_template('index_search.html', keyword=keyword, genres=genres, languages=languages, entries=entries)
