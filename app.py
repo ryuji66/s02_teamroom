@@ -274,13 +274,9 @@ def mypage():
 def watch():
     # タグボタンの表示名を表示させるためにデータを取ってきてる
     genres = db.execute("SELECT * FROM genres")
-    # その他を削除する
-    genres.pop()
 
     # 上と同じ
     languages = db.execute("SELECT * FROM languages")
-    # その他を削除する
-    languages.pop()
 
 
     # worksテーブルと中間テーブルを結合して必要な情報を取得
@@ -301,8 +297,21 @@ def watch():
 @app.route("/watch_get/<string:get>")
 def watch_get(get):
     works = db.execute("SELECT * FROM works WHERE work_id = ?", get)
+    genres = db.execute("SELECT genre FROM works WHERE work_id = ?", get)
+    genre = genres[0]["genre"]
+    langs = db.execute("""
+        SELECT works.*, GROUP_CONCAT(languages.name) as language_name
+        FROM works
+        LEFT JOIN language_to_work
+        ON works.work_id = language_to_work.work_id
+        LEFT JOIN languages
+        ON languages.language_id = language_to_work.language_id
+        WHERE works.work_id = ?
+        GROUP BY works.work_id;
+    """, get)
+    print(langs)
     link = Markup(works[0]["youtube"])
-    return render_template("watch_get.html", works = works, link = link)
+    return render_template("watch_get.html", works = works, link = link, genre = genre, langs = langs)
 
 
 @app.route("/output", methods=["GET", "POST"])
