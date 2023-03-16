@@ -620,13 +620,12 @@ def index_search():
         ON languages.language_id = language_to_entry.language_id
         LEFT JOIN users
         ON users.user_id = entries.user_id
-        WHERE title LIKE ?
-        OR body LIKE ?
+        WHERE body LIKE ?
         GROUP BY entries.entry_id;
-    """, keyword, keyword)
+    """, f"%{keyword}%")
 
-    if entries == []:
-        flash("検索結果が見つかりません")
-        return redirect("/")
+   # if entries == []:
+   #     flash("検索結果が見つかりません")
+   #     return redirect("/")
 
-    return render_template('index_search.html', genres=genres, languages=languages, entries=entries)
+    return render_template('index_search.html', keyword=keyword, genres=genres, languages=languages, entries=entries)
