@@ -620,9 +620,10 @@ def index_search():
         ON languages.language_id = language_to_entry.language_id
         LEFT JOIN users
         ON users.user_id = entries.user_id
-        WHERE body LIKE ?
+        WHERE LOWER(title) LIKE LOWER(?)
+        OR LOWER(body) LIKE LOWER(?)
         GROUP BY entries.entry_id;
-    """, f"%{keyword}%")
+    """, f"%{keyword}%", f"%{keyword}%")
 
    # if entries == []:
    #     flash("検索結果が見つかりません")
