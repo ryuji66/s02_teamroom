@@ -1,19 +1,34 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Watch_get
+    <!-- InputかIndexを書く -->
+    <meta charset="UTF-8">
+    <title>Flexbox Example</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='button.css') }}">
 {% endblock %}
 
 {% block main %}
 {% for work in works %}
     <h2>{{ work.title }}</h2>
+    <button name="button" class="tag_genres">{{ genre }}</button>
+    <br>
+    {% for lang in langs %}
+    {% for language in lang.language_name.split(',') %}
+    <button class="tag_languages">{{ language }}</button>
+    {% endfor %}
+    {% endfor %}
     <body>
+        <h3>制作物紹介動画</h3>
         <h2>
             {{ link }}
         </h2>
-        <h2>
+        <h3>
+            GitHubリポジトリ
+        </h3>
+        <h4>
             <a href="{{ work.github }}" target="_blank" rel="noopener">{{ work.github }}</a>
-        </h2>
+        </h4>
     </body>
 {% endfor %}
 {% endblock %}
