@@ -180,6 +180,7 @@ h2:before {
 }
 h2:after {
   right: 7px;
+}
 
 /* これより下 button.cssにあったやつ */
 
@@ -226,4 +227,10 @@ h2:after {
 .button_delete:hover,
 .button_stop:hover {
   background-color: #777777;
+}
+
+.comment{
+  white-space: pre-wrap;
+  width: inherit;
+  word-wrap: break-word;
 }
