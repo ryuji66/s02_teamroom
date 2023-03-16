@@ -1,29 +1,22 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    <!-- InputかIndexを書く -->
-    <meta charset="UTF-8">
-    <title>Flexbox Example</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='button.css') }}">
+    Watch_tag
 {% endblock %}
 
 {% block main %}
 <h2>制作物一覧</h2>
+<!-- タグボタンを表示させるためのコード -->
 <div class="tag_list">
-    <!-- タグボタンを表示させるためのコード -->
-    <!-- <form action="/index_tag" method="post"> -->
-        <!-- <div class="box-container_tag"> -->
-        {% for i in genres %}
-            <button name="button" type="submit" class="tag_genres" onclick="location.href='{{ url_for('watch_tag', tag=i.name) }}'">{{ i.name }}</button>
-        {% endfor %}
-        <br>
-        {% for i in languages %}
-            <button name="button" type="submit" class="tag_languages" onclick="location.href='{{ url_for('watch_language', tag=i.name) }}'">{{ i["name"] }}</button>
-        {% endfor %}
-        <!-- </div> -->
-    <!-- </form> -->
+    {% for i in genres %}
+        <button name="button" type="submit" class="tag_genres" onclick="location.href='{{ url_for('watch_tag', tag=i.name) }}'">{{ i.name }}</button>
+    {% endfor %}
+    <br>
+    {% for i in languages %}
+        <button name="button" type="submit" class="tag_languages" onclick="location.href='{{ url_for('watch_language', tag=i.name) }}'">{{ i["name"] }}</button>
+    {% endfor %}
 </div>
+
 <div class="box-container">
     {% for work in works %}
     <div class="box">
