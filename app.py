@@ -595,3 +595,38 @@ def watch_language(tag):
         return render_template("watch.html", genres=genres, languages=languages, works=works)
 
     return render_template('watch_language.html', genres=genres, languages=languages, works=works)
+
+@app.route("/index_search")
+def index_search():
+
+    # タグボタンの表示名を表示させるためにデータを取ってきてる
+    genres = db.execute("SELECT * FROM genres")
+    # その他を削除する
+    genres.pop()
+
+    # 上と同じ
+    languages = db.execute("SELECT * FROM languages")
+    # その他を削除する
+    languages.pop()
+
+    keyword = request.args.get('keyword')
+
+    entries = db.execute("""
+        SELECT entries.*, GROUP_CONCAT(languages.name) as language_name, users.username
+        FROM entries
+        LEFT JOIN language_to_entry
+        ON entries.entry_id = language_to_entry.entry_id
+        LEFT JOIN languages
+        ON languages.language_id = language_to_entry.language_id
+        LEFT JOIN users
+        ON users.user_id = entries.user_id
+        WHERE title LIKE ?
+        OR body LIKE ?
+        GROUP BY entries.entry_id;
+    """, keyword, keyword)
+
+    if entries == []:
+        flash("検索結果が見つかりません")
+        return redirect("/")
+
+    return render_template('index_search.html', genres=genres, languages=languages, entries=entries)
