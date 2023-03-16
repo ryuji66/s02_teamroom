@@ -455,6 +455,10 @@ def index_tag(tag):
         GROUP BY entries.entry_id;
     """, tag)
 
+    if entries == []:
+        flash("そのジャンルの投稿はまだ行われていません")
+        return redirect("/")
+
     return render_template('index_tag.html', genres=genres, languages=languages, entries=entries)
 
 @app.route("/index_language/<string:tag>")
@@ -483,6 +487,10 @@ def index_language(tag):
         WHERE languages.name = ?
         GROUP BY entries.entry_id;
     """, tag)
+
+    if entries == []:
+        flash("その言語を用いた投稿はまだ行われていません")
+        return redirect("/")
 
     return render_template('index_tag.html', genres=genres, languages=languages, entries=entries)
 
@@ -513,6 +521,22 @@ def watch_tag(tag):
         GROUP BY works.work_id;
     """, tag)
 
+    if works == []:
+        # worksテーブルと中間テーブルを結合して必要な情報を取得
+        works = db.execute("""
+            SELECT works.*, GROUP_CONCAT(languages.name) as language_name, users.username
+            FROM works
+            LEFT JOIN language_to_work
+            ON works.work_id = language_to_work.work_id
+            LEFT JOIN languages
+            ON languages.language_id = language_to_work.language_id
+            LEFT JOIN users
+            ON users.user_id = works.user_id
+            GROUP BY works.work_id;
+        """)
+        flash("そのジャンルの投稿はまだ行われていません")
+        return render_template("watch.html", genres=genres, languages=languages, works=works)
+
     return render_template('watch_tag.html', genres=genres, languages=languages, works=works)
 
 @app.route("/watch_language/<string:tag>")
@@ -541,5 +565,21 @@ def watch_language(tag):
         WHERE languages.name = ?
         GROUP BY works.work_id;
     """, tag)
+
+    if works == []:
+        # worksテーブルと中間テーブルを結合して必要な情報を取得
+        works = db.execute("""
+            SELECT works.*, GROUP_CONCAT(languages.name) as language_name, users.username
+            FROM works
+            LEFT JOIN language_to_work
+            ON works.work_id = language_to_work.work_id
+            LEFT JOIN languages
+            ON languages.language_id = language_to_work.language_id
+            LEFT JOIN users
+            ON users.user_id = works.user_id
+            GROUP BY works.work_id;
+        """)
+        flash("その言語を用いた投稿はまだ行われていません")
+        return render_template("watch.html", genres=genres, languages=languages, works=works)
 
     return render_template('watch_language.html', genres=genres, languages=languages, works=works)
