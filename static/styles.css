@@ -159,7 +159,27 @@ nav .navbar-nav .nav-item .nav-link{
   background-color: #666666;
 }
 
+.design h2{
+  position: relative;
+  padding: 0.25em 1em;
+  border-top: solid 2px white;
+  border-bottom: solid 2px white;
+}
 
+.design h2:before, h2:after {
+  content: '';
+  position: absolute;
+  top: -7px;
+  width: 2px;
+  height: -webkit-calc(100% + 14px);
+  height: calc(100% + 14px);
+  background-color: white;
+}
+h2:before {
+  left: 7px;
+}
+h2:after {
+  right: 7px;
 
 /* これより下 button.cssにあったやつ */
 
