@@ -6,7 +6,7 @@
 
 {% block main %}
 {% for work in works %}
-    <h2>{{ work.title }}</h2>
+    <h2>「{{ work.title }}」</h2>
     <button name="button" class="tag_genres">{{ genre }}</button>
     <br>
     {% for lang in langs %}
@@ -15,16 +15,33 @@
     {% endfor %}
     {% endfor %}
     <body>
-        <h3>制作物紹介動画</h3>
-        <h2>
-            {{ link }}
-        </h2>
+        <div class="getdesign"><br><h3>制作物紹介動画</h3></div>
         <h3>
-            GitHubリポジトリ
+            {{ link }}
         </h3>
+        <div class="getdesign"><br><h3>制作物概要</h3></div>
+        <h4>{{ work.overview }}</h4>
+        <div class="getdesign"><br><h3>制作の背景</h3></div>
+        <h4>{{ work.background }}</h4>
+        <div class="getdesign"><br><h3>GitHubリポジトリ</h3></div>
         <h4>
             <a href="{{ work.github }}" target="_blank" rel="noopener">{{ work.github }}</a>
         </h4>
+        {% if work.dev_url == null %}
+        <div class="getdesign"><br><h3>デブロイのURL</h3></div>
+        {% endif %}
+        <div class="getdesign"><br><h3>学年</h3></div>
+        <h4>{{ work.grade }}</h4>
+        <div class="getdesign"><br><h3>レベル</h3></div>
+        <h4>{{ work.level }}</h4>
+        <div class="getdesign"><br><h3>連絡先</h3></div>
+        <h4><a href="mailto:{{ work.mail_address }}">{{ work.mail_address }}</a></h4>
+        <div class="getdesign"><br><h3>何人で製作したか</h3></div>
+        <h4>{{ work.howmany }}人</h4>
+        <div class="getdesign"><br><h3>工夫した点</h3></div>
+        <h4>{{ work.technique }}</h4>
+        <div class="getdesign"><br><h3>コメント</h3></div>
+        <h4>{{ work.body }}</h4>
     </body>
 {% endfor %}
 {% endblock %}
