@@ -26,13 +26,9 @@ db = SQL("sqlite:///board.db")
 def index():
     # タグボタンの表示名を表示させるためにデータを取ってきてる
     genres = db.execute("SELECT * FROM genres")
-    # その他を削除する
-    genres.pop()
 
     # 上と同じ
     languages = db.execute("SELECT * FROM languages")
-    # その他を削除する
-    languages.pop()
 
     checking = db.execute("SELECT entry_id, day_end FROM entries")
     get_today = str(datetime.datetime.now().date())
@@ -278,7 +274,6 @@ def watch():
     # 上と同じ
     languages = db.execute("SELECT * FROM languages")
 
-
     # worksテーブルと中間テーブルを結合して必要な情報を取得
     works = db.execute("""
         SELECT works.*, GROUP_CONCAT(languages.name) as language_name, users.username
@@ -409,14 +404,9 @@ def output():
 
         # タグボタンの表示名を表示させるためにデータを取ってきてる
         genres = db.execute("SELECT * FROM genres")
-        # その他を削除する
-        genres.pop()
 
         # 上と同じ
         languages = db.execute("SELECT * FROM languages")
-        # その他を削除する
-        languages.pop()
-
 
         # worksテーブルと中間テーブルを結合して必要な情報を取得
         works = db.execute("""
@@ -442,13 +432,9 @@ def index_tag(tag):
 
     # タグボタンの表示名を表示させるためにデータを取ってきてる
     genres = db.execute("SELECT * FROM genres")
-    # その他を削除する
-    genres.pop()
 
     # 上と同じ
     languages = db.execute("SELECT * FROM languages")
-    # その他を削除する
-    languages.pop()
 
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
     entries = db.execute("""
@@ -475,13 +461,9 @@ def index_language(tag):
 
     # タグボタンの表示名を表示させるためにデータを取ってきてる
     genres = db.execute("SELECT * FROM genres")
-    # その他を削除する
-    genres.pop()
 
     # 上と同じ
     languages = db.execute("SELECT * FROM languages")
-    # その他を削除する
-    languages.pop()
 
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
     entries = db.execute("""
@@ -508,13 +490,9 @@ def watch_tag(tag):
 
     # タグボタンの表示名を表示させるためにデータを取ってきてる
     genres = db.execute("SELECT * FROM genres")
-    # その他を削除する
-    genres.pop()
 
     # 上と同じ
     languages = db.execute("SELECT * FROM languages")
-    # その他を削除する
-    languages.pop()
 
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
     works = db.execute("""
@@ -553,13 +531,9 @@ def watch_language(tag):
 
     # タグボタンの表示名を表示させるためにデータを取ってきてる
     genres = db.execute("SELECT * FROM genres")
-    # その他を削除する
-    genres.pop()
 
     # 上と同じ
     languages = db.execute("SELECT * FROM languages")
-    # その他を削除する
-    languages.pop()
 
     # entriesテーブルと中間テーブルを結合して必要な情報を取得
     works = db.execute("""
