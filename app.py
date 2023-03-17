@@ -486,11 +486,13 @@ def index_tag(tag):
         GROUP BY entries.entry_id;
     """, tag)
 
+    a=tag
+
     if entries == []:
         flash("そのジャンルの投稿はまだ行われていません")
         return redirect("/")
 
-    return render_template('index_tag.html', genres=genres, languages=languages, entries=entries)
+    return render_template('index_tag.html', genres=genres, languages=languages, entries=entries, tags=a)
 
 
 @app.route("/index_language/<string:tag>")
@@ -516,11 +518,13 @@ def index_language(tag):
         GROUP BY entries.entry_id;
     """, tag)
 
+    a=tag
+
     if entries == []:
         flash("その言語を用いた投稿はまだ行われていません")
         return redirect("/")
 
-    return render_template('index_tag.html', genres=genres, languages=languages, entries=entries)
+    return render_template('index_tag.html', genres=genres, languages=languages, entries=entries, tags=a)
 
 
 @app.route("/watch_tag/<string:tag>")
@@ -546,6 +550,8 @@ def watch_tag(tag):
         GROUP BY works.work_id;
     """, tag)
 
+    a=tag
+
     if works == []:
         # worksテーブルと中間テーブルを結合して必要な情報を取得
         works = db.execute("""
@@ -562,7 +568,7 @@ def watch_tag(tag):
         flash("そのジャンルの投稿はまだ行われていません")
         return render_template("watch.html", genres=genres, languages=languages, works=works)
 
-    return render_template('watch_tag.html', genres=genres, languages=languages, works=works)
+    return render_template('watch_tag.html', genres=genres, languages=languages, works=works, tags=a)
 
 
 @app.route("/watch_language/<string:tag>")
@@ -588,6 +594,8 @@ def watch_language(tag):
         GROUP BY works.work_id;
     """, tag)
 
+    a=tag
+
     if works == []:
         # worksテーブルと中間テーブルを結合して必要な情報を取得
         works = db.execute("""
@@ -604,7 +612,7 @@ def watch_language(tag):
         flash("その言語を用いた投稿はまだ行われていません")
         return render_template("watch.html", genres=genres, languages=languages, works=works)
 
-    return render_template('watch_language.html', genres=genres, languages=languages, works=works)
+    return render_template('watch_language.html', genres=genres, languages=languages, works=works, tags=a)
 
 
 @app.route("/index_search")
