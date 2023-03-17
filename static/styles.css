@@ -73,7 +73,7 @@ form {
 /*works用　box_works, box-header_works*/
 .box_works {
   display: grid;
-  background-color: #525252;
+  background-color: #222222;
   border-radius: 14px;
   width: 380px;
   height: 450px;
