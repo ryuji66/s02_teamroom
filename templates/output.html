@@ -56,6 +56,38 @@
             </div>
 
             <div class="mb-3">
+                <label for="youtube2" class="form-label">説明動画のサムネイル</label>
+                <!--モーダル開始-->
+                <div class="text-center col-xs-12">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal3">
+                        YouTubeのサムネイルについて
+                    </button>
+                </div>
+                <div id="modal3" class="modal fade" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <ul>
+                                    <p>YouYubeのサムネイルについて</p>
+                                    <p>YouTubeの"共有"ボタン</p>
+                                    <p>↓</p>
+                                    <p>表示されるリンク</p>
+                                    <p>↓</p>
+                                    <p>https://youtu.be/○〜○</p>
+                                    <p>この○〜○に該当する部分を貼り付けてください</p>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--モーダル終了-->
+                <input class="form-control" type="text" placeholder="入力してください" name="youtube2" autocomplete="off">
+            </div>
+
+            <div class="mb-3">
                 <label for="howmany" class="form-label">制作に携わった人数</label>
                 <input class="form-control mx-auto w-auto" name="howmany" placeholder="入力してください" type="number">
             </div>
