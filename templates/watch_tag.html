@@ -6,6 +6,12 @@
 
 {% block main %}
 <h2>{{ tags }}の検索結果</h2>
+<div class="mb-3">
+    <form action="{{ url_for('watch_search') }}" method="GET">
+        <input class="form-control" type="text" placeholder="検索したいキーワードを入力" name="keyword" autocomplete="off">
+        <button type="submit" class="btn btn-primary">検索</button>
+    </form>
+</div>
 <div class="tag_list">
     {% for i in genres %}
         <button name="button" type="submit" class="tag_genres" onclick="location.href='{{ url_for('watch_tag', tag=i.name) }}'">{{ i.name }}</button>
