@@ -125,6 +125,7 @@ def input():
     else:
         return render_template("input.html")
 
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -177,7 +178,6 @@ def register():
 
     else:
         return render_template("register.html")
-
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -310,6 +310,7 @@ def watch():
     """)
 
     return render_template('watch.html', genres=genres, languages=languages, works=works)
+
 
 @app.route("/watch_get/<string:get>")
 def watch_get(get):
@@ -485,6 +486,7 @@ def index_tag(tag):
 
     return render_template('index_tag.html', genres=genres, languages=languages, entries=entries)
 
+
 @app.route("/index_language/<string:tag>")
 def index_language(tag):
 
@@ -513,6 +515,7 @@ def index_language(tag):
         return redirect("/")
 
     return render_template('index_tag.html', genres=genres, languages=languages, entries=entries)
+
 
 @app.route("/watch_tag/<string:tag>")
 def watch_tag(tag):
@@ -555,6 +558,7 @@ def watch_tag(tag):
 
     return render_template('watch_tag.html', genres=genres, languages=languages, works=works)
 
+
 @app.route("/watch_language/<string:tag>")
 def watch_language(tag):
 
@@ -596,6 +600,7 @@ def watch_language(tag):
 
     return render_template('watch_language.html', genres=genres, languages=languages, works=works)
 
+
 @app.route("/index_search")
 def index_search():
 
@@ -626,3 +631,38 @@ def index_search():
         return redirect("/")
 
     return render_template('index_search.html', keyword=keyword, genres=genres, languages=languages, entries=entries)
+
+
+@app.route("/watch_search")
+def watch_search():
+
+    # タグボタンの表示名を表示させるためにデータを取ってきてる
+    genres = db.execute("SELECT * FROM genres")
+
+    # 上と同じ
+    languages = db.execute("SELECT * FROM languages")
+
+    keyword = request.args.get('keyword')
+
+    works = db.execute("""
+        SELECT works.*, GROUP_CONCAT(languages.name) as language_name, users.username
+        FROM works
+        LEFT JOIN language_to_work
+        ON works.work_id = language_to_work.work_id
+        LEFT JOIN languages
+        ON languages.language_id = language_to_work.language_id
+        LEFT JOIN users
+        ON users.user_id = works.user_id
+        WHERE LOWER(title) LIKE LOWER(?)
+        OR LOWER(overview) LIKE LOWER(?)
+        OR LOWER(background) LIKE LOWER(?)
+        OR LOWER(technique) LIKE LOWER(?)
+        OR LOWER(body) LIKE LOWER(?)
+        GROUP BY works.work_id;
+    """, f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%")
+
+    if works == []:
+        flash("検索結果が見つかりません")
+        return redirect("/watch")
+
+    return render_template('watch_search.html', keyword=keyword, genres=genres, languages=languages, works=works)
