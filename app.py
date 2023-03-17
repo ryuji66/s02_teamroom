@@ -601,13 +601,9 @@ def index_search():
 
     # タグボタンの表示名を表示させるためにデータを取ってきてる
     genres = db.execute("SELECT * FROM genres")
-    # その他を削除する
-    genres.pop()
 
     # 上と同じ
     languages = db.execute("SELECT * FROM languages")
-    # その他を削除する
-    languages.pop()
 
     keyword = request.args.get('keyword')
 
