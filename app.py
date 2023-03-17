@@ -340,6 +340,7 @@ def output():
         get_project = request.form.get("project")
         get_github = request.form.get("github")
         get_youtube = request.form.get("youtube")
+        get_youtube2 = request.form.get("youtube2")
         get_devurl = request.form.get("devurl")
         get_howmany =  request.form.get("howmany")
         get_mail = request.form.get("mail")
@@ -366,6 +367,11 @@ def output():
         # youtubeが入力されてるか確認
         elif not get_youtube:
             flash("YouTubeのURL（埋め込み用）を入力してください")
+            return redirect('output')
+
+        # youtube2が入力されてるか確認
+        elif not get_youtube2:
+            flash("YouTubeのサムネイルを入力してください")
             return redirect('output')
 
         # howmanyが入力されてるか確認
@@ -423,7 +429,7 @@ def output():
             flash("コメントを何か入力してください")
             return redirect('output')
 
-        db.execute("INSERT INTO works (title, github, youtube, howmany, mail_address, time, level, genre, overview, background, technique, body, user_id, grade, dev_url) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", get_project, get_github, get_youtube, get_howmany, get_mail, get_complete, get_person, get_genre, get_overview, get_background, get_technique, get_text, session["user_id"], get_grade, get_devurl)
+        db.execute("INSERT INTO works (title, github, youtube, howmany, mail_address, time, level, genre, overview, background, technique, body, user_id, grade, dev_url, youtube2) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", get_project, get_github, get_youtube, get_howmany, get_mail, get_complete, get_person, get_genre, get_overview, get_background, get_technique, get_text, session["user_id"], get_grade, get_devurl, get_youtube2)
         # 工夫しがいがありそう
         get_workid = db.execute("SELECT work_id FROM works WHERE title = ? AND github = ? AND youtube = ? AND howmany = ? AND mail_address = ? AND time = ? AND level = ? AND genre = ? AND overview = ? AND background = ? AND technique = ? AND body = ? AND user_id = ? AND grade = ? AND dev_url = ?", get_project, get_github, get_youtube, get_howmany, get_mail, get_complete, get_person, get_genre, get_overview, get_background, get_technique, get_text, session["user_id"], get_grade, get_devurl)
 
