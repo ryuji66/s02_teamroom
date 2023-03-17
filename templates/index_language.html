@@ -5,8 +5,7 @@
 {% endblock %}
 
 {% block main %}
-<h2>投稿一覧</h2>
-<!-- タグボタンを表示させるためのコード -->
+<h2>{{ tags }}の検索結果</h2>
 <div class="tag_list">
     {% for i in genres %}
         <button name="button" type="submit" class="tag_genres" onclick="location.href='{{ url_for('index_tag', tag=i.name) }}'">{{ i.name }}</button>
