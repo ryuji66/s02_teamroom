@@ -7,9 +7,6 @@
 {% block main %}
 <h2>{{ keyword }} の検索結果</h2>
 <div class="tag_list">
-    <!-- タグボタンを表示させるためのコード -->
-    <!-- <form action="/index_tag" method="post"> -->
-        <!-- <div class="box-container_tag"> -->
         {% for i in genres %}
             <button name="button" type="submit" class="tag_genres" onclick="location.href='{{ url_for('index_tag', tag=i.name) }}'">{{ i.name }}</button>
         {% endfor %}
