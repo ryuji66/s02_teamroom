@@ -31,12 +31,10 @@
                 </h2>
             </div>
             <div class="box-content">
-                <p>ユーザーネーム: {{ work.username }}</p>
-                <p>連絡先 : <a href="mailto:{{ work.mail_address }}">{{ work.mail_address }}</a></p>
-                <p>開発予定期間 : {{ work.time }}</p>
-                <p>スキルレベル : {{ work.level }}</p>
-                <p>開発人数 : {{ work.howmany }}</p>
-                <p>GitHubリポジトリ : <a href="{{ work.github }}" target="_blank" rel="noopener">{{ work.github }}</a></p>
+                <p>年齢 : {{ work.grade }}</p>
+                <p>レベル : {{ work.level }}</p>
+                <p>概要 : {{ work.overview }}</p>
+                <p>背景 : {{ work.background }}</p>
             </div>
         </div>
    {% endfor %}
